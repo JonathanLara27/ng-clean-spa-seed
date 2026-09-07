@@ -1,0 +1,45 @@
+@use '@angular/material' as mat;
+
+.custom-snackbar {
+  @include mat.snack-bar-overrides((
+    container-shape: 8px,            
+    supporting-text-color: #ffffff, 
+    button-color: #ffffff,
+  ));
+
+  // ✅ Corregido: Ahora coincide con "custom-snackbar-success"
+  &.custom-snackbar-success {
+    @include mat.snack-bar-overrides((
+      container-color: #00a739, 
+      supporting-text-color: #ffffff, 
+      button-color: #ffffff,
+    ));
+  }
+
+  // ✅ Corregido: Ahora coincide con "custom-snackbar-error"
+  &.custom-snackbar-error {
+    @include mat.snack-bar-overrides((
+      container-color: #cc1d23, 
+      supporting-text-color: #ffffff, 
+      button-color: #ffffff,
+    ));
+  }
+
+  // ✅ Corregido: Ahora coincide con "custom-snackbar-warning"
+  &.custom-snackbar-warning {
+    @include mat.snack-bar-overrides((
+      container-color: #ffc107, 
+      supporting-text-color: #121212,
+      button-color: #01387b,
+    ));
+  }
+
+  // ✅ Corregido: Ahora coincide con "custom-snackbar-info"
+  &.custom-snackbar-info {
+    @include mat.snack-bar-overrides((
+      container-color: #01387b, 
+      supporting-text-color: #ffffff, 
+      button-color: #ffc107, 
+    ));
+  }
+}

@@ -1,0 +1,53 @@
+.custom-snackbar-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  gap: 16px;
+  width: 100%;
+}
+
+.custom-snackbar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.custom-snackbar-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.custom-snackbar-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
+.custom-snackbar-text {
+  font-size: 14px;
+}
+
+.custom-snackbar-action {
+  background: transparent;
+  border: none;
+  color: inherit; // 🔥 Hereda el `button-color` definido en el archivo global
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  padding: 8px 12px; 
+  opacity: 0.9;
+  transition: opacity 0.2s ease-in-out;
+  flex-shrink: 0; 
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 1;
+  }
+}
