@@ -1,0 +1,43 @@
+@use '../../../../../../scss/v2//abstracts/mixins' as *;
+
+.generic-selector-wrapper {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid var(--rs-border-light, #e2e8f0);
+  padding: 24px;
+  margin-bottom: 24px;
+
+  .selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .selector-title {
+      color: var(--rs-title-color, #01387b);
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .selector-count {
+      background-color: var(--rs-page-bg, #f8fafc);
+      color: var(--rs-text-secondary, #64748b);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  .search-field {
+    margin-bottom: 8px;
+  }
+
+  .table-container {
+    // Aseguramos que si la tabla crece mucho, tenga scroll interno
+    max-height: 400px;
+    overflow-y: auto;
+    @include custom-scrollbar(6px, transparent, var(--rs-title-color));
+  }
+}

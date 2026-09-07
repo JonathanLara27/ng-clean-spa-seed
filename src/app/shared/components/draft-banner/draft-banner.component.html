@@ -1,0 +1,15 @@
+<div class="draft-banner">
+    <div class="draft-banner__content">
+        <mat-icon class="draft-banner__icon">restore</mat-icon>
+        <span class="draft-banner__message">{{ message() }}</span>
+    </div>
+
+    <div class="draft-banner__actions">
+        <button type="button" class="btn-discard" (click)="onDiscard.emit()">
+            {{ discardText() }}
+        </button>
+        <button type="button" class="btn-recover" (click)="onRecover.emit()">
+            {{ recoverText() }}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<aside class="sidebar" [class.sidebar--collapsed]="isCollapsed()">
+
+    <!-- 🔹 Botón Toggle Flotante (estilo SelfieSalud) -->
+    <button class="sidebar__toggle-btn" (click)="toggleSidebar()" aria-label="Alternar menú">
+        @if (isCollapsed()) {
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        } @else {
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        }
+    </button>
+
+    <!-- 🔹 Cabecera / Logo -->
+    <div class="sidebar__header">
+        <div class="sidebar__logo-container">
+            <!-- Reemplazar con el SVG real de tu logo -->
+            <span class="sidebar__logo-text">SelfieSalud</span>
+        </div>
+    </div>
+
+    <!-- 🔹 Navegación Principal -->
+    <nav class="sidebar__nav">
+        <ul class="sidebar__menu">
+            @for (item of menuItems(); track item.id) {
+            <li class="sidebar__item" [class.sidebar__item--has-children]="item.children">
+
+                <!-- Item Clickable -->
+                <a class="sidebar__link" [routerLink]="item.children ? null : item.route"
+                    [routerLinkActive]="!item.children ? 'sidebar__link--active' : ''"
+                    (click)="item.children ? toggleSubmenu(item.id) : null" [matTooltip]="item.label"
+                    [matTooltipDisabled]="!isCollapsed()" matTooltipPosition="right">
+
+                    <!-- Reemplazas el <span> con [innerHTML] por esto: -->
+                    @if (item.icon) {
+                    <mat-icon class="sidebar__icon">{{ item.icon }}</mat-icon>
+                    }
+                    @if (item.svgIcon) {
+                    <mat-icon class="sidebar__icon" [svgIcon]="item.svgIcon"></mat-icon>
+                    }
+
+                    <span class="sidebar__label">{{ item.label }}</span>
+
+                    <!-- Flecha de Submenú -->
+                    @if (item.children) {
+                    <mat-icon class="sidebar__arrow"
+                        [class.sidebar__arrow--open]="activeSubmenu() === item.id">keyboard_arrow_down</mat-icon>
+                    }
+                </a>
+
+                <!-- Submenú -->
+                @if (item.children) {
+                <ul class="sidebar__submenu"
+                    [style.height]="activeSubmenu() === item.id ? (item.children.length * 48) + 'px' : '0'">
+                    @for (child of item.children; track child.id) {
+                    <li>
+                        <a class="sidebar__sublink" [routerLink]="child.route"
+                            routerLinkActive="sidebar__sublink--active">
+                            <span class="sidebar__label">{{ child.label }}</span>
+                        </a>
+                    </li>
+                    }
+                </ul>
+                }
+            </li>
+            }
+        </ul>
+    </nav>
+
+    <!-- 🔹 Footer / Cerrar Sesión -->
+    <div class="sidebar__footer">
+        <button class="sidebar__logout-btn" (click)="logout()" matTooltip="Cerrar sesión"
+            [matTooltipDisabled]="!isCollapsed()" matTooltipPosition="right">
+            <span class="sidebar__icon">
+                <mat-icon>logout</mat-icon>
+            </span>
+            <span class="sidebar__label">Cerrar sesión</span>
+        </button>
+    </div>
+
+</aside>

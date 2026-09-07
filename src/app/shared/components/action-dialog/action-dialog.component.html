@@ -1,0 +1,47 @@
+<div class="px-6 py-4">
+
+    @if (data.icon) {
+    <div class="dialog-icon-wrapper">
+        @if (data.iconType === 'material') {
+        <mat-icon class="large-icon">{{ data.icon }}</mat-icon>
+        } @else {
+        <img [src]="url_base+data.icon" alt="" aria-hidden="true" class="svg-icon">
+        }
+    </div>
+    }
+
+    <h2 class="text-primary fs-24 font-bold mb-6 text-center">{{ data.title }}</h2>
+
+    @if (data.subtitle) {
+    <p class="text-muted fs-16 font-normal text-center">{{ data.subtitle }}</p>
+    }
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="my-2">
+        @if (data.showTextArea) {
+        <div class="form-group w-full text-left">
+            <app-form-label [text]="data.inputLabel || 'Motivo'" [control]="formGroup.get('motivo')"></app-form-label>
+        
+            <textarea class="form-textarea w-full" formControlName="motivo" autocomplete="off"
+                [placeholder]="data.inputPlaceholder || 'Ingrese el motivo aquí...'" rows="3">
+                </textarea>
+        
+            <app-form-error [control]="formGroup.get('motivo')"></app-form-error>
+        </div>
+        }
+    
+        <div class="grid-cols-2 gap-4 mt-6">
+            @if (data.showCancelButton !== false) {
+            <button type="button" class="btn btn-outline-secondary w-full" (click)="onCancel()">
+                {{ data.cancelText || 'Cancelar' }}
+            </button>
+            }
+    
+            <button type="submit" class="btn btn-secondary w-full" [disabled]="formGroup.invalid">
+                {{ data.confirmText || 'Aceptar' }}
+            </button>
+        </div>
+        
+    </form>
+
+
+</div>

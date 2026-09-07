@@ -1,0 +1,51 @@
+<div class="generic-selector-wrapper">
+
+    <div class="selector-header">
+        <h3 class="selector-title">{{ title() }}</h3>
+        <span class="selector-count">{{ selectedData().length }} seleccionados</span>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-full search-field">
+        <mat-label>{{ placeholder() }}</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+            @for (option of filteredOptions(); track option[idProp()]) {
+            <mat-option [value]="option">
+                {{ option[searchProp()] }}
+            </mat-option>
+            }
+            @if (filteredOptions().length === 0 && searchTerm()) {
+            <mat-option disabled>No se encontraron resultados</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- <div class="w-full mb-4">
+        <app-form-label [text]="placeholder()" [control]="searchControl"></app-form-label>
+        <div class="input-with-icon">
+            <input type="text" class="form-control has-suffix" [formControl]="searchControl" [matAutocomplete]="auto" autocomplete="off">
+            <div class="icon-suffix">
+                <mat-icon>search</mat-icon>
+            </div>
+        </div>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+            @for (option of filteredOptions(); track option[idProp()]) {
+            <mat-option [value]="option">
+                {{ option[searchProp()] }}
+            </mat-option>
+            }
+            @if (filteredOptions().length === 0 && searchTerm()) {
+            <mat-option disabled>No se encontraron resultados</mat-option>
+            }
+        </mat-autocomplete>
+    </div> -->
+
+    <div class="table-container">
+        <app-reusable-table [data]="selectedData()" [customTexts]="customTableTexts" [columns]="columns()" [actions]="tableActions"
+            (actionClicked)="onTableAction($event)">
+        </app-reusable-table>
+    </div>
+
+</div>

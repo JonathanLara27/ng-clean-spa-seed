@@ -1,0 +1,20 @@
+<header class="topbar">
+  <!-- 🔹 Lado Izquierdo: Breadcrumb -->
+  <div class="topbar__breadcrumb">
+    <span class="topbar__path">{{ breadcrumbPath() }} / </span>
+    <span class="topbar__current">{{ currentRouteName() }}</span>
+  </div>
+
+  <!-- 🔹 Lado Derecho: Perfil del Usuario -->
+  <div class="topbar__profile" tabindex="0">
+    <div class="topbar__user-info">
+      <span class="topbar__name">{{ userName() }}</span>
+      <span class="topbar__role">{{ userRole() }}</span>
+    </div>
+    
+    <!-- Avatar (Puedes usar img si tienes la foto) -->
+    <div class="topbar__avatar">
+      <mat-icon>domain</mat-icon> <!-- Icono temporal de edificio/hospital -->
+    </div>
+  </div>
+</header>

@@ -1,3 +1,52 @@
-// Variables globales (colores, espaciados, breakpoints)
-$primary-color: #3f51b5;
-$accent-color: #ff4081;
+:root {
+    // 🔤 Tipografía Global
+    --rs-font-primary: 'Metropolis', system-ui, -apple-system, sans-serif;
+
+    // 🎨 Primitivos (Paleta Base)
+    --rs-blue-900: #01387b;
+    --rs-blue-500: #2271bf;
+    --rs-blue-100: #c6e2ff;
+    --rs-cyan-500: #1bccc7;
+    --rs-gray-500: #8c8f9c;
+    --rs-red-500: #db0a0a;
+    
+    // 🏛️ Semánticos (Uso de los primitivos)
+    --rs-title-color: #01387b;
+    --rs-color-primary: var(--rs-cyan-500);
+    --rs-color-secondary: var(--rs-blue-500);
+    --rs-color-error: var(--rs-red-500);
+    --rs-text-primary: #334155;
+    --rs-text-secondary: #64748b;
+    --rs-page-bg: #f3f9ff;
+
+    // 📏 Dimensiones base
+    --rs-radius-sm: 12px;
+    --rs-radius-md: 16px;
+    --rs-radius-lg: 20px;
+
+    --rs-btn-radius: 50px;
+    --rs-btn-radius-sm: 6px;
+
+    --rs-card-radius: 16px;
+    --rs-input-radius: 24px;
+
+    // 🔲 Bordes genéricos (Útiles para separadores, tablas y scrollbars)
+    --rs-border-light: #f4f5f8;
+    --rs-border-medium: #dadada;
+
+    // 📝 Variables de Formularios
+    --rs-input-bg: #f1f5f9; // Gris un tono más oscuro (#f1f5f9) para resaltar sobre fondo blanco
+    --rs-input-border: var(--rs-border-light); // Borde sutil (#e2e8f0) para definir el campo
+    --rs-input-focus: #01387b;
+    --rs-error-color: #cc1d23; // El rojo de los asteriscos
+    --rs-primary-blue: #2271bf;
+
+    // 🔥 Estados deshabilitados (Disabled)
+    --rs-disabled-bg: #f8fafc; // Gris muy clarito para el fondo
+    --rs-disabled-text: #94a3b8; // Gris oscuro para el texto
+    --rs-disabled-border: #e2e8f0; // Gris medio para el borde
+
+    // 🌫️ Sombras base
+    --rs-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --rs-shadow-md: 0 4px 12px rgba(146, 142, 142, 0.216);
+}

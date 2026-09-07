@@ -1,0 +1,99 @@
+.pdf-viewer-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  // 🔥 RESTAURADOS: El fondo y los bordes que te hice borrar
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 16px 24px; // Le damos su propio aire al header
+    border-bottom: 1px solid #f1f5f9;
+    flex-shrink: 0; // 🔥 CRÍTICO: Prohíbe terminantemente que el iframe aplaste el header
+    gap: 16px;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+
+      .pdf-icon {
+        color: var(--rs-title-color, #01387b);
+        font-size: 28px;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+      }
+
+      .dialog-title {
+        color: var(--rs-title-color, #01387b);
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .btn-close-circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--rs-btn-primary-bg, #cc1d23);
+      background: transparent;
+      color: var(--rs-btn-primary-bg, #cc1d23);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+
+      &:hover {
+        background: var(--rs-table-action-bg-light, #ffebee);
+        transform: scale(1.05);
+      }
+
+      mat-icon {
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 24px 24px 24px; // Ajustado un pelín para que no quite tanto espacio
+
+    // 🔥 LAS BALAS DE PLATA CONTRA EL SCROLL HORIZONTAL:
+    box-sizing: border-box;
+    overflow: hidden !important; // Obligamos a Material a callarse y no poner scroll
+
+    min-height: 0;
+    max-height: none !important;
+
+    .pdf-iframe {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      border: 1px solid var(--rs-border-medium, #cbd5e1);
+      border-radius: 8px;
+      display: block;
+      background-color: #f8fafc;
+    }
+  }
+}

@@ -1,6 +1,21 @@
+@use '../abstracts/mixins' as mix;
+
 // Reseteo de estilos básicos
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+/* ==========================================================
+   🌐 SCROLLBAR GLOBAL PERSONALIZADO
+   ========================================================== */
+* {
+  @include mix.custom-scrollbar(6px, transparent, var(--rs-color-primary));
+
+  // Soporte estándar para Firefox
+  scrollbar-width: thin;
+  scrollbar-color: var(--rs-color-primary) transparent;
 }

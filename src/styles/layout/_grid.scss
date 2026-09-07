@@ -1,1 +1,25 @@
-// Sistema de grillas o layouts principales
+@use '../abstracts/mixins' as mix;
+
+/* =============================================================
+   ✅ GRID UTILITIES
+   ============================================================= */
+
+.grid-auto {
+  @include mix.grid-auto-fit(300px, 24px);
+}
+
+.grid-auto-sm {
+  @include mix.grid-auto-fit(200px, 16px);
+}
+
+@for $i from 1 through 12 {
+  .grid-cols-#{$i} {
+    @include mix.grid-cols($i, 20px);
+  }
+}
+
+@for $i from 1 through 12 {
+  .col-span-#{$i} {
+    grid-column: span $i / span $i !important;
+  }
+}

@@ -1,0 +1,76 @@
+:host {
+  display: block;
+  // Margen superior y lateral para que "flote"
+  padding: 24px 32px 0 32px; 
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 32px;
+  background-color: var(--rs-white, #ffffff);
+  border-radius: 36px; // Bordes muy redondeados tipo píldora
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); // Sombra muy sutil
+  
+  &__breadcrumb {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  &__path {
+    color: var(--rs-text-secondary, #64748b);
+  }
+
+  &__current {
+    color: var(--rs-color-primary, #cc1d23); // Tu rojo primario
+    font-weight: 600;
+  }
+
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 36px;
+    padding: 6px;
+    transition: background-color 0.2s ease;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; // Alinea los textos a la derecha
+  }
+
+  &__name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rs-color-secondary, #01387b); // Azul oscuro
+    line-height: 1.2;
+  }
+
+  &__role {
+    font-size: 11px;
+    color: var(--rs-text-secondary, #64748b);
+  }
+
+  &__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--rs-color-primary, #cc1d23); // Fondo base
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    
+    // Si usaras una imagen en el futuro:
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

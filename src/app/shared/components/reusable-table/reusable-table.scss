@@ -1,0 +1,266 @@
+@use '../../../../styles/abstracts/mixins' as *;
+
+// 🎨 DEFINICIÓN DE VARIABLES (API de Estilos del Componente)
+:host {
+  // Colores Base
+  --rs-table-bg: #ffffff;
+  --rs-table-text-main: #333333;
+  --rs-table-text-muted: #888888;
+  --rs-table-text-light: #666666;
+
+  // Headers
+  --rs-table-header-bg: #e5f0fa;
+  --rs-table-header-text: #01387b;
+
+  // Bordes
+  --rs-table-border-color: #d0dbe5;
+
+  // Acciones (Rojos corporativos)
+  --rs-table-action-main: #cc1d23;
+  --rs-table-action-bg-light: #ffebee;
+
+  --rs-table-header-bg: #e5f0fa;
+
+  // 🆕 Nueva variable para controlar si es línea sólida o punteada
+  --rs-table-border-style: dashed;
+}
+
+// 🧱 ESTRUCTURA Y ESTILOS
+.table-container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: var(--rs-table-bg);
+
+  overflow-y: auto;
+  @include custom-scrollbar(6px, transparent, var(--rs-title-color));
+
+  // Evitamos scroll y clics indeseados mientras carga
+  &.table-loading {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .red-salud-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+    overflow-x: auto;
+    color: var(--rs-table-text-main);
+
+    th {
+      background-color: var(--rs-table-header-bg);
+      color: var(--rs-table-header-text);
+      font-weight: 600;
+      padding: 16px;
+      white-space: nowrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    td {
+      padding: 16px;
+      vertical-align: middle;
+      border-bottom: 1px var(--rs-table-border-style) var(--rs-table-border-color);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    // 🎨 Celdas Especiales
+    .cell-stacked {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .stacked-main {
+        font-weight: 500;
+        color: var(--rs-table-text-main);
+      }
+
+      .stacked-sub {
+        font-size: 12px;
+        color: var(--rs-table-text-muted);
+      }
+    }
+
+    .cell-array {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .array-item {
+        color: var(--rs-table-text-light);
+      }
+    }
+
+    // 🏷️ Lógica de Badges, ahora en badges.scss
+    // .status-badge {
+    //   display: inline-flex; // Usamos flex para centrar el texto dentro
+    //   align-items: center;
+    //   justify-content: center;
+
+    //   // 🔥 Ajustamos el tamaño para que se vea como en tu imagen
+    //   padding: 12px 24px;
+    //   min-width: 120px; // Un ancho mínimo para consistencia
+    //   border-radius: 8px; // Bordes redondeados suaves
+
+    //   font-weight: 600;
+    //   font-size: 14px;
+    //   line-height: 1;
+    //   white-space: nowrap;
+    // }
+
+    //ACCIONES
+
+    // 🛠️ Celda Principal
+    .actions-header {
+      text-align: center;
+    }
+
+    .actions-cell {
+      text-align: center;
+      vertical-align: middle;
+
+      // 🔥 ESTADO INYECTADO: Flecha arriba, pero todos los botones debajo en una Sola Fila
+      &.inline-actions-row {
+        .action-buttons-grid {
+          display: flex; // Rompemos el grid de 2x2
+          flex-direction: row; // Forzamos una línea horizontal continua
+          flex-wrap: nowrap;
+          gap: 8px;
+        }
+      }
+    }
+
+    // 📦 Contenedor Maestro (Flex Column SIEMPRE)
+    .actions-wrapper {
+      display: flex;
+      flex-direction: column; // 🔥 LA FLECHA SIEMPRE ESTARÁ ARRIBA
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      // 🔽 Botón "Mostrar más" (La flecha)
+      .action-dropdown-btn {
+        background-color: var(--rs-table-action-bg-light);
+        border-radius: 50%;
+        width: 40px !important;
+        height: 40px !important;
+        padding: 8px !important;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.2s ease,
+          background-color 0.2s ease;
+
+        mat-icon {
+          margin: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &:hover {
+          background-color: #fbd6d8;
+        }
+      }
+
+      // 🎛️ ESTADO POR DEFECTO: La Cuadrícula de 2x2 (Debajo de la flecha)
+      .action-buttons-grid {
+        display: grid;
+        // 🔥 LA MAGIA: Toma la variable, si no existe, usa 2 por defecto
+        grid-template-columns: repeat(var(--action-grid-cols, 2), max-content);
+        gap: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+      }
+
+      // 🖼️ Iconos SVG
+      .custom-svg-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+
+      // 🔠 Botones de texto (stroked-button)
+      .text-action-btn {
+        border-color: var(--rs-table-action-main);
+        color: var(--rs-table-action-main);
+        border-radius: 6px;
+        white-space: nowrap;
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--rs-table-text-light);
+    }
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 🌐 Estilos Globales (Fuera de la tabla para afectar al mat-menu)
+::ng-deep .custom-svg-icon-menu {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+  vertical-align: middle;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  // Fondo blanco semitransparente
+  background-color: rgba(255, 255, 255, 0.6);
+
+  // Efecto moderno de desenfoque estilo Apple/Glassmorphism (opcional pero recomendado)
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  z-index: 10;
+
+  // Centrado perfecto
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  border-radius: inherit;
+
+  // Animación de entrada suave
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

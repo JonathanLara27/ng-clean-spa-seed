@@ -1,0 +1,27 @@
+// ==========================================
+// 🎨 ESTILOS DEL MODAL DE ACCIÓN (Action Dialog)
+// ==========================================
+
+// Contenedor del icono superior
+.dialog-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  
+  // Si usas un icono de Material
+  .large-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: var(--rs-btn-primary-bg, #cc1d23); // Color por defecto (puedes pasarlo dinámico si quieres luego)
+  }
+
+  // Si usas una imagen SVG (como la gráfica del 3er modal)
+  .svg-icon {
+    width: 80px;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+  }
+}

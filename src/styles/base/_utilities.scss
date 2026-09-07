@@ -1,0 +1,71 @@
+@use '../abstracts/mixins' as mix;
+
+// 📝 1. TIPOGRAFÍA Y COLORES
+.text-primary { color: var(--rs-title-color, #01387B) !important; }
+.text-body { color: var(--rs-text-primary, #4f5461) !important; }
+.text-muted { color: var(--rs-text-secondary, #80848E) !important; }
+.text-danger { color: var(--rs-error-color, #db0a0a) !important; }
+.text-success { color: var(--rs-color-success, #4BBD60) !important; }
+
+.text-center { text-align: center !important; }
+.text-left { text-align: left !important; }
+.text-right { text-align: right !important; }
+.text-truncate { @include mix.text-truncate; }
+
+// 📐 2. LAYOUT Y DISPLAY (Flexbox)
+.w-full { width: 100% !important; }
+.d-flex { display: flex !important; }
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-grow { flex-grow: 1; }
+.flex-wrap { flex-wrap: wrap !important; }
+
+.justify-start { justify-content: flex-start !important; }
+.justify-center { justify-content: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-end { justify-content: flex-end !important; }
+
+.align-start { align-items: flex-start !important; }
+.align-center { align-items: center !important; }
+.align-between { align-content: space-between !important; }
+.align-end { align-items: flex-end !important; }
+
+// 🚀 3. MOTOR DE ESPACIADO DINÁMICO
+$spacer-base: 4px;
+
+@for $i from 0 through 9 {
+  $size: $i * $spacer-base;
+
+  .p-#{$i} { padding: #{$size} !important; }
+  .pt-#{$i} { padding-top: #{$size} !important; }
+  .pb-#{$i} { padding-bottom: #{$size} !important; }
+  .pl-#{$i} { padding-left: #{$size} !important; }
+  .pr-#{$i} { padding-right: #{$size} !important; }
+  .px-#{$i} { padding-left: #{$size} !important; padding-right: #{$size} !important; }
+  .py-#{$i} { padding-top: #{$size} !important; padding-bottom: #{$size} !important; }
+
+  .m-#{$i} { margin: #{$size} !important; }
+  .mt-#{$i} { margin-top: #{$size} !important; }
+  .mb-#{$i} { margin-bottom: #{$size} !important; }
+  .ml-#{$i} { margin-left: #{$size} !important; }
+  .mr-#{$i} { margin-right: #{$size} !important; }
+  .mx-#{$i} { margin-left: #{$size} !important; margin-right: #{$size} !important; }
+  .my-#{$i} { margin-top: #{$size} !important; margin-bottom: #{$size} !important; }
+
+  .gap-#{$i} { gap: #{$size} !important; }
+}
+
+.mt-auto { margin-top: auto !important; }
+.mb-auto { margin-bottom: auto !important; }
+.ml-auto { margin-left: auto !important; }
+.mr-auto { margin-right: auto !important; }
+
+// 🚀 4. MAX WIDTHS
+$width-iterator: 100;
+@for $i from 1 through 5 {
+  $max-width: $width-iterator * $i;
+  .max-w-#{$max-width} {
+    max-width: $max-width + px !important;
+    width: 100%; 
+  }
+}

@@ -1,0 +1,162 @@
+/* ==========================================
+   Alert Banners (Componente Reutilizable)
+   Clases disponibles: .alert-info, .alert-warning, .alert-neutral
+   ========================================== */
+:host {
+    // 🚩 Variables de Banners / Alertas (Componente Alert-Banner)
+    // ---------------------------------------------------------
+    // Variante: INFO (Azul)
+    --rs-banner-info-bg: #eff6ff;
+    --rs-banner-info-border: #bfdbfe;
+    --rs-banner-info-icon: #3b82f6;
+    --rs-banner-info-title: #1e3a8a;
+    --rs-banner-info-text: #334155;
+
+    // Variante: WARNING / PENDIENTE (Ámbar)
+    --rs-banner-warn-bg: #fffbeb;
+    --rs-banner-warn-border: #fde68a;
+    --rs-banner-warn-icon: #d97706;
+    --rs-banner-warn-title: #92400e;
+    --rs-banner-warn-text: #b45309;
+
+    // Variante: ERROR (Rojo)
+    --rs-banner-error-bg: #fef2f2;
+    --rs-banner-error-border: #fecaca;
+    --rs-banner-error-icon: var(--rs-error-color, #cc1d23); // Reutilizamos tu rojo base
+    --rs-banner-error-title: #991b1b;
+    --rs-banner-error-text: #b91c1c;
+
+    // Variante: NEUTRAL / LECTURA (Gris Pizarra)
+    --rs-banner-neutral-bg: #f8fafc;
+    --rs-banner-neutral-border: #e2e8f0;
+    --rs-banner-neutral-icon: #64748b;
+    --rs-banner-neutral-title: #334155;
+    --rs-banner-neutral-text: #475569;
+}
+
+.alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 24px;
+    border-radius: var(--rs-btn-radius-sm, 8px); // Reutilizamos el border-radius de variables
+    border: 1px solid transparent;
+
+    .alert-icon {
+        flex-shrink: 0; // Evita que el icono se aplaste
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+    }
+
+    .alert-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .alert-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .alert-message {
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.5;
+
+        // Estilo global para las negritas dentro del mensaje
+        strong {
+            font-weight: 600;
+        }
+    }
+
+    /* ------------------------------
+       Variantes de Color
+       ------------------------------ */
+
+    &.alert-info {
+        background-color: var(--rs-banner-info-bg);
+        border-color: var(--rs-banner-info-border);
+
+        .alert-icon {
+            color: var(--rs-banner-info-icon);
+        }
+
+        .alert-title {
+            color: var(--rs-banner-info-title);
+        }
+
+        .alert-message {
+            color: var(--rs-banner-info-text);
+
+            strong {
+                color: var(--rs-banner-info-title);
+            }
+        }
+    }
+
+    &.alert-warning {
+        background-color: var(--rs-banner-warn-bg);
+        border-color: var(--rs-banner-warn-border);
+
+        .alert-icon {
+            color: var(--rs-banner-warn-icon);
+        }
+
+        .alert-title {
+            color: var(--rs-banner-warn-title);
+        }
+
+        .alert-message {
+            color: var(--rs-banner-warn-text);
+
+            strong {
+                color: var(--rs-banner-warn-title);
+            }
+        }
+    }
+
+    &.alert-error {
+        background-color: var(--rs-banner-error-bg);
+        border-color: var(--rs-banner-error-border);
+
+        .alert-icon {
+            color: var(--rs-banner-error-icon);
+        }
+
+        .alert-title {
+            color: var(--rs-banner-error-title);
+        }
+
+        .alert-message {
+            color: var(--rs-banner-error-text);
+
+            strong {
+                color: var(--rs-banner-error-title);
+            }
+        }
+    }
+
+    &.alert-neutral {
+        background-color: var(--rs-banner-neutral-bg);
+        border-color: var(--rs-banner-neutral-border);
+
+        .alert-icon {
+            color: var(--rs-banner-neutral-icon);
+        }
+
+        .alert-title {
+            color: var(--rs-banner-neutral-title);
+        }
+
+        .alert-message {
+            color: var(--rs-banner-neutral-text);
+
+            strong {
+                color: var(--rs-banner-neutral-title);
+            }
+        }
+    }
+}

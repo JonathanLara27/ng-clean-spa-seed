@@ -1,0 +1,256 @@
+// 📦 TOKENS LOCALES DEL SIDEBAR (Se alimentan de los globales)
+:host {
+  --sb-width-expanded: 280px;
+  --sb-width-collapsed: 80px;
+  --sb-bg: var(--rs-white, #ffffff);
+  --sb-text: var(--rs-title-color, #01387b);
+  --sb-text-muted: var(--rs-text-secondary, #64748b);
+  --sb-active-bg: var(--rs-page-bg, #f3f9ff);
+  --sb-active-indicator: var(--rs-color-primary, #cc1d23);
+  --sb-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --sb-item-height: 48px;
+
+  // 🌟 NUEVO: Token de sombra lateral suave pero definida
+  --sb-shadow: 4px 0 24px rgba(0, 0, 0, 0.06);
+
+  // 🌟 FIX: 0 (Sup-Izq) | 24px (Sup-Der) | 24px (Inf-Der) | 0 (Inf-Izq)
+  --sb-border-radius: 0 24px 24px 0;
+}
+
+.sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: var(--sb-width-expanded);
+  height: 100vh;
+  background-color: var(--sb-bg);
+  border-radius: var(--sb-border-radius);
+
+  // 🔥 Reemplazamos el borde por la sombra
+  border-right: none;
+  box-shadow: var(--sb-shadow);
+
+  transition: width var(--sb-transition);
+  z-index: 100; // Crucial para que la sombra se proyecte sobre el main content
+
+  &__toggle-btn {
+    position: absolute;
+    top: 32px;
+    right: -14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--rs-color-primary, #cc1d23);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--rs-shadow-sm);
+    z-index: 10;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    overflow: hidden;
+  }
+
+  &__logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px; // Evita que el texto colapse feo
+  }
+
+  &__logo-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--sb-text);
+    transition: opacity var(--sb-transition);
+  }
+
+  &__nav {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px 0;
+
+    // Ocultar scrollbar por estética
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--rs-border-medium);
+      border-radius: 4px;
+    }
+  }
+
+  &__menu,
+  &__submenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__link,
+  &__logout-btn {
+    display: flex;
+    align-items: center;
+    height: var(--sb-item-height);
+    padding: 0 24px;
+    color: var(--sb-text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: var(--sb-active-bg);
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; // 🔥 Ancho fijo
+    height: 24px; // 🔥 Alto fijo
+    min-width: 24px;
+    margin-right: 16px;
+    color: var(--sb-text-muted);
+    transition: all 0.2s ease;
+    flex-shrink: 0; // 🔥 PROHÍBE que Flexbox aplaste el icono
+  }
+
+  &__label {
+    flex-grow: 1;
+    text-align: left;
+    transition: opacity var(--sb-transition);
+  }
+
+  &__arrow {
+    transition: transform 0.3s ease;
+    color: var(--sb-text-muted);
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__submenu {
+    background-color: #fafafa;
+    overflow: hidden;
+    transition: height var(--sb-transition);
+  }
+
+  &__sublink {
+    display: flex;
+    align-items: center;
+    height: var(--sb-item-height);
+    padding: 0 24px 0 64px; // Sangría para subnivel
+    color: var(--sb-text-muted);
+    text-decoration: none;
+    font-size: 13.5px;
+    white-space: nowrap;
+    transition: all 0.2s;
+
+    &:hover,
+    &--active {
+      color: var(--sb-text);
+      font-weight: 600;
+    }
+  }
+
+  // Estado Activo Nivel 1
+  &__link--active {
+    color: var(--sb-text);
+    background-color: var(--sb-active-bg);
+
+    .sidebar__icon {
+      color: var(--sb-active-indicator);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: var(--sb-active-indicator);
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  &__footer {
+    padding: 16px;
+    border-top: 1px solid var(--rs-border-light, #e2e8f0);
+  }
+
+  &__logout-btn {
+    border-radius: var(--rs-radius-md, 12px);
+    background-color: var(--sb-active-bg);
+    color: var(--rs-color-primary, #cc1d23);
+
+    .sidebar__icon {
+      color: inherit;
+    }
+
+    &:hover {
+      filter: brightness(0.95);
+    }
+  }
+
+  /* =========================================
+     ESTADO COLAPSADO
+     ========================================= */
+  &--collapsed {
+    width: var(--sb-width-collapsed);
+
+    .sidebar__logo-text,
+    .sidebar__label,
+    .sidebar__arrow {
+      opacity: 0;
+      width: 0; // 🔥 Quita el espacio físico del texto
+      overflow: hidden; // 🔥 Oculta lo que desborde
+      visibility: hidden; // 🔥 Evita clics fantasma
+      flex-grow: 0; // Evita que intente expandirse
+    }
+
+    .sidebar__link {
+      padding: 0;
+      justify-content: center;
+    }
+
+    .sidebar__logout-btn {
+      padding: 0;
+      justify-content: center;
+      width: 48px; // Hace que el botón sea un cuadrado perfecto
+      margin: 0 auto; // Lo centra en el espacio disponible
+    }
+
+    .sidebar__icon {
+      margin-right: 0; // Al quitar el margen, el icono se centra perfecto
+    }
+
+    .sidebar__submenu {
+      height: 0 !important; // Fuerza el cierre al colapsar
+    }
+  }
+}

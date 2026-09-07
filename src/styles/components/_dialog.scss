@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+
+/* ==========================================================================
+   🎨 MODAL / DIALOG OVERRIDES (Material 3)
+   ========================================================================== */
+// Aplicamos los estilos solo cuando llames al modal con panelClass: 'custom-dialog-surface'
+.custom-dialog-surface {
+  @include mat.dialog-overrides((
+    container-shape: 20px, 
+    container-elevation-shadow: 0px 10px 40px rgba(0, 0, 0, 0.08),
+    
+    // 🔥 En Material 3, el surface ya no tiene padding por defecto. 
+    // El padding se lo dan los directivas mat-dialog-content, mat-dialog-actions, etc.
+    // Si quieres forzar que TODO el contenido interior no tenga padding, descomenta esto:
+    // content-padding: 0,
+    // actions-padding: 0,
+    // headline-padding: 0
+  ));
+}
+
+/* ==========================================================================
+   ⚙️ FIX: Eliminar scroll fantasma (Infraestructura CDK)
+   ========================================================================== */
+// Estas clases pertenecen al Component Dev Kit (CDK) que inyecta los overlays
+// en el <body>. Como no son exclusivas de mat-dialog, no tienen tokens, 
+// por lo que mantener el CSS puro con !important aquí es correcto y necesario.
+
+.cdk-global-overlay-wrapper,
+.cdk-overlay-container {
+  overflow: hidden !important;
+}
+
+.mat-mdc-dialog-container {
+  overflow: hidden !important;
+}

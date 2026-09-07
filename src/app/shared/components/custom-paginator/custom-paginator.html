@@ -1,0 +1,49 @@
+<div class="paginador-container">
+
+    <div class="paginador-info">
+        <span class="texto-resultados">
+            {{ startItem() }} {{ texts().to }} {{ endItem() }} {{ texts().of }} {{ totalItems() }} {{ texts().results }}
+        </span>
+
+        @if (showPageSizeOptions()) {
+        <div class="page-size-selector">
+            <label>{{ texts().show }}</label>
+            <select class="select-limit" (change)="onPageSizeChange($event)" [value]="pageSize()">
+                @for (size of pageSizeOptions(); track size) {
+                <option [value]="size">{{ size }}</option>
+                }
+            </select>
+        </div>
+        }
+    </div>
+
+    <div class="paginador-controles">
+
+        @if (showFirstLastButtons()) {
+            <button class="btn-nav" (click)="onFirst()" [disabled]="!hasPrevPage()" [attr.aria-label]="texts().first"
+            [matTooltip]="texts().first">
+                <mat-icon>keyboard_double_arrow_left</mat-icon>
+            </button>
+        }
+
+        <button class="btn-nav" (click)="onPrev()" [disabled]="!hasPrevPage()" [attr.aria-label]="texts().previous"
+        [matTooltip]="texts().previous">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <span class="pagina-actual">{{ currentPage() }}</span>
+
+        <button class="btn-nav" (click)="onNext()" [disabled]="!hasNextPage()" [attr.aria-label]="texts().next"
+        [matTooltip]="texts().next">
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+
+        @if (showFirstLastButtons()) {
+            <button class="btn-nav" (click)="onLast()" [disabled]="!hasNextPage()" [attr.aria-label]="texts().last"
+            [matTooltip]="texts().last">
+                <mat-icon>keyboard_double_arrow_right</mat-icon>
+            </button>
+        }
+
+    </div>
+</div>

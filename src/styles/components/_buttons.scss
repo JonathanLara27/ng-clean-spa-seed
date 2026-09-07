@@ -1,1 +1,82 @@
-// Estilos globales de botones personalizados
+// 📦 Base del Botón con Tokens Locales
+.btn {
+    // 1. Definición de variables internas (Por defecto transparentes)
+    --btn-bg: transparent;
+    --btn-text: inherit;
+    --btn-border: transparent;
+    --btn-hover-bg: transparent;
+    --btn-hover-border: transparent;
+    --btn-shadow: none;
+
+    // 2. Estilos estructurales que consumen las variables
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 24px;
+    border-radius: var(--rs-btn-radius, 25px); // Fallback por si la global falta
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    // Aplicación de colores
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1px solid var(--btn-border);
+
+    &:hover:not(:disabled) {
+        background-color: var(--btn-hover-bg);
+        border-color: var(--btn-hover-border);
+        box-shadow: var(--btn-shadow);
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+    }
+}
+
+// 🔴 MODIFICADOR: Primario (Cyan)
+.btn-primary {
+    --btn-bg: var(--rs-color-primary);
+    --btn-text: #ffffff;
+    // 🔥 Oscurecemos el cyan un 15% para el hover dinámicamente
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-primary), black 15%);
+    --btn-shadow: 0 4px 8px rgba(27, 204, 199, 0.3);
+}
+
+// 🔵 MODIFICADOR: Secundario Real (Azul)
+.btn-secondary {
+    --btn-bg: var(--rs-color-secondary);
+    --btn-text: #ffffff;
+    // 🔥 Oscurecemos el azul un 15% para el hover
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-secondary), black 15%);
+}
+
+// 🔲 MODIFICADOR: Outline Primario (El que antes llamabas secondary)
+.btn-outline-primary {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-primary);
+    --btn-text: var(--rs-color-primary);
+    // 🔥 Le damos un fondo cyan súper transparente al pasar el mouse
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-primary), transparent 90%);
+    --btn-hover-border: var(--rs-color-primary);
+}
+
+// 🔲 MODIFICADOR: Outline Secundario
+.btn-outline-secondary {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-secondary);
+    --btn-text: var(--rs-color-secondary);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-secondary), transparent 90%);
+    --btn-hover-border: var(--rs-color-secondary);
+}

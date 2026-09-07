@@ -1,0 +1,17 @@
+<div class="pdf-viewer-container">
+
+    <div class="header" mat-dialog-title>
+        <div class="header-left">
+            <mat-icon class="pdf-icon">picture_as_pdf</mat-icon>
+            <h2 class="dialog-title" [title]="data.title">{{ data.title }}</h2>
+        </div>
+        <button class="btn-close-circle" (click)="cerrar()" matTooltip="Cerrar">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="content" mat-dialog-content>
+        <iframe [src]="safePdfUrl" type="application/pdf" class="pdf-iframe"></iframe>
+    </div>
+
+</div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { Component, computed, inject } from '@angular/core';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { NotificationData } from '../../../core/interfaces/notification.interface';
 
 @Component({
@@ -31,7 +31,6 @@ import { NotificationData } from '../../../core/interfaces/notification.interfac
     </div>
   `,
   styleUrl: './custom-snackbar.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomSnackbar {
 

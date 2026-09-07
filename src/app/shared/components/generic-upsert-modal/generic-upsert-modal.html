@@ -1,0 +1,38 @@
+<div class="px-6 py-4">
+
+    <h2 class="text-primary fs-24 font-bold mb-6 text-left">{{ config.title }}</h2>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div class="p-1 mb-6">
+            <div class="d-flex flex-column gap-2">
+                <app-form-label [text]="config.inputLabel" [control]="formGroup.get('inputValue')">
+                </app-form-label>
+
+                @if (config.useTextArea) {
+                <textarea class="form-textarea w-full" formControlName="inputValue"
+                    [placeholder]="config.inputPlaceholder || 'Escriba aquí...'"
+                    [rows]="config.textAreaRows || 3"> </textarea>
+                } @else {
+                <input type="text" class="form-control w-full" formControlName="inputValue"
+                    [placeholder]="config.inputPlaceholder || 'Escriba aquí...'" autocomplete="off">
+                }
+
+                <app-form-error [control]="formGroup.get('inputValue')">
+                </app-form-error>
+            </div>
+        </div>
+
+        <div class="grid-cols-2 gap-4">
+            <button type="button" class="btn btn-secondary w-full" (click)="onCancel()">
+                {{ config.cancelButtonText || 'Cancelar' }}
+            </button>
+
+            <button type="submit" class="btn btn-primary w-full" [disabled]="formGroup.invalid">
+                {{ config.saveButtonText || 'Guardar' }}
+            </button>
+        </div>
+
+    </form>
+
+</div>

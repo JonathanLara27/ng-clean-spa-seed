@@ -1,0 +1,110 @@
+<div class="table-container" [class.table-loading]="isLoading()" [style.max-height]="maxHeight()">
+
+  @if (isLoading()) {
+  <div class="loading-overlay">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+  }
+  <table class="red-salud-table">
+
+    <thead>
+      <tr>
+        @for (col of columns(); track col.key) {
+        <th [class]="col.headerClass">{{ col.label }}</th>
+        }
+        @if (actions().length > 0) {
+        <th class="actions-header" [class]="actionsCellClass()"> {{texts().actionsTitle}}</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of filteredData(); track $index) {
+        <tr>
+
+          @for (col of columns(); track col.key) {
+          <!-- 🚀 OPTIMIZADO CON PIPE: Clases memorizadas -->
+          <td [class]="row | tableCell:col:'class'">
+            @switch (col.type) {
+            @case ('badge') {
+            <span class="status-badge">
+              {{ row | tableCell:col:'value' }}
+            </span>
+            }
+            @case ('array') {
+            <div class="cell-array">
+              @for (item of (row | tableCell:col:'value'); track $index) {
+              <span class="array-item">{{ item }}</span>
+              }
+            </div>
+            }
+            @case ('stacked') {
+            <!-- 🚀 OPTIMIZADO: Guardamos en 'stackData' para no leer dos veces -->
+            @if ((row | tableCell:col:'value'); as stackData) {
+            <div class="cell-stacked">
+              <span class="stacked-main">{{ stackData[0] }}</span>
+              <span class="stacked-sub">{{ stackData[1] }}</span>
+            </div>
+            }
+            }
+            @default {
+            {{ row | tableCell:col:'value' }}
+            }
+            }
+            }
+
+            @if (actions().length > 0) {
+            <!-- 🚀 OPTIMIZADO: Calculamos visibleActions 1 sola vez para toda la celda -->
+            @if ((row | tableAction:actions():'visible'); as visibleActions) {
+            <td class="actions-cell" [class]="actionsCellClass()">
+              <div class="actions-wrapper" [style.--action-grid-cols]="actionsGridCols()">
+
+                <!-- 1. EL BOTÓN DE EXPANDIR -->
+                @if (visibleActions.length >= maxActionsVisible()) {
+                <button mat-icon-button class="action-dropdown-btn" (click)="toggleRowExpansion($index)"
+                  [matTooltip]="isRowExpanded($index) ? texts().collapseTooltip : texts().expandTooltip">
+                  <mat-icon color="warn">
+                    {{ isRowExpanded($index) ? 'expand_less' : 'expand_more' }}
+                  </mat-icon>
+                </button>
+                }
+
+                <!-- 2. EL GRID DE ACCIONES -->
+                @if (visibleActions.length < maxActionsVisible() || isRowExpanded($index)) { <div
+                  class="action-buttons-grid">
+                  @for (action of visibleActions; track action.id) {
+                  @if (action.isTextButton) {
+                  <button mat-stroked-button color="warn" class="text-action-btn" [class]="row | tableAction:action:'class'"
+                    [matTooltip]="action.label" (click)="onAction(action.id, row)">
+                    {{ action.label }}
+                  </button>
+                  } @else {
+                  <button mat-icon-button [color]="action.color || 'warn'" [class]="row | tableAction:action:'class'"
+                    [matTooltip]="action.label" (click)="onAction(action.id, row)">
+                    @if (action.svgIcon) {
+                    <img [src]="baseUrlSvgs() + action.svgIcon" [alt]="action.label" class="custom-svg-icon" />
+                    } @else if (action.icon) {
+                    <mat-icon>{{ action.icon }}</mat-icon>
+                    }
+                  </button>
+                  }
+                  }
+              </div>
+              }
+            </div>
+            </td>
+        }
+        }
+        </tr>
+    }
+
+@if (filteredData().length === 0) {
+<tr>
+  <td [attr.colspan]="columns().length + (actions().length > 0 ? 1 : 0)" class="empty-state">
+    {{ texts().emptyState }}
+  </td>
+</tr>
+}
+</tbody>
+</table>
+</div>

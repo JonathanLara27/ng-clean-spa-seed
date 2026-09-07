@@ -1,0 +1,51 @@
+// ==========================================
+// Variables (Idealmente en tu _variables.scss global)
+// ==========================================
+$primary-color: #cc1d23;
+$overlay-bg-color: rgba(255, 255, 255, 0.8);
+
+// Variables locales del componente
+$spinner-size: 50px;
+$spinner-thickness: 5px;
+$z-index-loader: 9999;
+
+// ==========================================
+// Estilos
+// ==========================================
+
+/* Fondo semitransparente que bloquea la pantalla entera */
+.loading-overlay {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  width: 100vw; 
+  height: 100vh; 
+  background: $overlay-bg-color; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: $z-index-loader; 
+}
+
+/* Spinner Moderno */
+.modern-spinner {
+  width: $spinner-size;
+  height: $spinner-size;
+  
+  // Magia de SCSS: Le pasamos el HEX y SCSS lo convierte a RGBA con 20% de opacidad
+  border: $spinner-thickness solid rgba($primary-color, 0.2); 
+  border-top-color: $primary-color; 
+  
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animación simple y eficiente */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

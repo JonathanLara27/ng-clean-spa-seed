@@ -1,6 +1,54 @@
-// Mixins globales
-@mixin flex-center {
+@mixin custom-scrollbar($width: 6px, $track-color: transparent, $thumb-color: var(--rs-border-medium)) {
+  &::-webkit-scrollbar {
+    width: $width;
+    height: $width;
+  }
+  &::-webkit-scrollbar-track {
+    background: $track-color;
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: 8px;
+
+    &:hover {
+      // Nota: color-mix es nativo de CSS moderno y funciona excelente con variables CSS
+      background: color-mix(in srgb, $thumb-color, black 10%);
+    }
+  }
+}
+
+@mixin text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin flex-center($direction: row) {
   display: flex;
-  justify-content: center;
+  flex-direction: $direction;
   align-items: center;
+  justify-content: center;
+}
+
+/* =============================================================
+   ✅ GRID SYSTEM MIXINS
+   ============================================================= */
+
+// 1. Grid Dinámico (Responsive sin media queries)
+@mixin grid-auto-fit($min-col-width: 300px, $gap: 20px) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat(auto-fit, minmax($min-col-width, 1fr));
+}
+
+// 2. Grid Estricto (Fuerza N columnas, colapsa en móvil)
+@mixin grid-cols($cols: 2, $gap: 20px, $breakpoint: 768px) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat($cols, 1fr);
+
+  @media (max-width: $breakpoint) {
+    grid-template-columns: 1fr;
+  }
 }

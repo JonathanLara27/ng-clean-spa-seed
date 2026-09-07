@@ -1,0 +1,1 @@
+export const DEBOUNCE_TIME_TO_SEARCH = 500;

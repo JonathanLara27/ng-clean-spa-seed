@@ -1,4 +1,58 @@
-// Configuración de tipografía
-body {
-  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+/* ==========================================================================
+   CONFIGURACIÓN BASE DEL BODY
+   ========================================================================== */
+body,
+html {
+  font-family: var(--rs-font-primary);
+  color: var(--rs-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Asegurar que los inputs/botones hereden la fuente
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* ==========================================
+   ⚖️ PESOS DE FUENTE (Font Weights)
+   ========================================== */
+// Mapa de pesos (Con comillas para evitar conflictos con colores como 'black')
+$font-weights: (
+  "thin": 100,
+  "light": 300,
+  "normal": 400,
+  "medium": 500,
+  "semibold": 600,
+  "bold": 700,
+  "extrabold": 800,
+  "black": 900
+);
+
+// Bucle para generar las clases .font-{peso}
+@each $name, $weight in $font-weights {
+  .font-#{$name} {
+    font-weight: #{$weight} !important;
+  }
+}
+
+.font-italic {
+  font-style: italic !important;
+}
+
+/* ==========================================
+   🔠 TAMAÑOS DE FUENTE (Font Sizes)
+   ========================================== */
+// Lista de tamaños exactos que usas en tu diseño
+$font-sizes: 11, 12, 13, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40;
+
+// Bucle para generar las clases .fs-{tamaño}
+@each $size in $font-sizes {
+  .fs-#{$size} {
+    font-size: #{$size}px !important;
+    line-height: 1.2 !important;
+  }
 }

@@ -1,8 +1,14 @@
-@import 'abstracts/variables';
-@import 'abstracts/mixins';
+@use 'abstracts/variables';
+@use 'abstracts/mixins';
 
-@import 'base/reset';
-@import 'base/typography';
+@use 'base/reset';
+@use 'base/typography';
+@use 'base/utilities';
 
-@import 'themes/material-theme';
-@import 'components/snackbar';
+@use 'layout/grid';
+@use 'themes/material-theme';
+
+@use 'components/snackbar';
+@use 'components/banner';
+@use 'components/dialog';
+@use 'components/buttons';

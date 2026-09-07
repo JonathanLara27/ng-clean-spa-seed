@@ -1,0 +1,27 @@
+// main-layout.component.scss
+
+.main-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; // Previene un scroll global en toda la ventana
+  background-color: var(--rs-page-bg, #f3f9ff); // Fondo gris/celeste global de tu app
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    
+    // Este scroll asegura que si una tabla es muy larga, 
+    // solo haga scroll la parte derecha de la pantalla.
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
+    // Suavizamos el scrollbar usando el mixin que creamos previamente
+    // Si lo dejaste en el reset global, puedes omitir esto.
+    scrollbar-width: thin;
+    
+    // Padding opcional: Si quieres que todas las pantallas nazcan con margen
+    // padding: 24px; 
+  }
+}
