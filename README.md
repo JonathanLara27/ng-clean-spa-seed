@@ -18,27 +18,36 @@ El proyecto sigue una división estricta para separar responsabilidades, mantene
 ```text
 src/
 ├── app/
-│   ├── core/               # Singleton services, Interceptors, Guards, configuraciones globales.
-│   ├── shared/             # Componentes UI reutilizables (dumb), Pipes, Directivas, Material Modules.
-│   ├── features/           # Módulos de negocio (Clean Architecture simplificada por feature).
+│   ├── core/                   # Singleton services, Interceptors, Guards, configuraciones globales.
+│   ├── shared/                 # Componentes UI reutilizables (dumb), Pipes, Directivas.
+│   ├── features/               # Módulos de negocio (Clean Architecture simplificada por feature).
 │   │   └── [feature-name]/
-│   │       ├── domain/         # Modelos, Interfaces, Tipos (Reglas de negocio puras).
-│   │       ├── application/    # Casos de uso, State management, Facades (Lógica de aplicación).
-│   │       ├── infrastructure/ # HTTP Services, DTOs, Mappers, Repositories (Acceso a datos externos).
-│   │       └── presentation/   # Smart Components, UI Pages, Rutas específicas de la feature.
+│   │       ├── application/    # Casos de uso y orquestación.
+│   │       │   └── state/      # Gestión de estado (Stores, rxResource, Signals).
+│   │       ├── domain/         # Núcleo del negocio independiente del framework.
+│   │       │   ├── constants/  # Valores fijos y enumeradores del dominio.
+│   │       │   └── entities/   # Interfaces y modelos de negocio puros.
+│   │       ├── infrastructure/ # Implementaciones técnicas y acceso a datos.
+│   │       │   ├── apis/       # Servicios HTTP y llamadas a endpoints.
+│   │       │   ├── dtos/       # Contratos de transferencia (Backend <-> Frontend).
+│   │       │   └── mappers/    # Transformadores de DTOs a Entidades.
+│   │       └── presentation/   # Capa visual y de interacción.
+│   │           ├── components/ # Componentes específicos de la feature.
+│   │           ├── pages/      # Componentes enrutables (Vistas principales).
+│   │           └── [feature].routes.ts # Definición de rutas hijas.
 │   ├── app.component.ts
 │   ├── app.config.ts
 │   └── app.routes.ts
-├── assets/                 # Imágenes, iconos, traducciones.
-└── styles/                 # Arquitectura SCSS 7-1
-    ├── abstracts/          # Variables, mixins, funciones (sin CSS de salida).
-    ├── base/               # Resets, tipografía global.
-    ├── components/         # Estilos de componentes globales puros (botones, tarjetas).
-    ├── layout/             # Estilos de estructura (header, footer, sidebar, grid).
-    ├── pages/              # Estilos específicos de página (uso excepcional).
-    ├── themes/             # Temas de Angular Material (Dark/Light mode).
-    ├── vendors/            # Overrides de Material u otras librerías externas.
-    └── main.scss           # Archivo de entrada: Importa todas las carpetas anteriores.
+├── assets/                     # Imágenes, iconos, traducciones estáticas.
+└── styles/                     # Arquitectura SCSS 7-1
+    ├── abstracts/              # Variables, mixins, funciones (sin CSS de salida).
+    ├── base/                   # Resets, tipografía global, utilidades.
+    ├── components/             # Overrides de Material (snackbars, dialogs).
+    ├── layout/                 # Sistema de grillas y estructuras mayores.
+    ├── pages/                  # Estilos específicos de página (uso excepcional).
+    ├── themes/                 # Configuración de temas (Material themes).
+    ├── vendors/                # Estilos de librerías externas de terceros.
+    └── main.scss               # Archivo de entrada centralizado.
 
 ```
 
