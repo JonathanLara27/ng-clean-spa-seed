@@ -81,7 +81,7 @@ Para evitar el acoplamiento de estilos y el CSS global desorganizado, los estilo
 
 1. **Clonar el template:**
 ```bash
-git clone <tu-repo-url> nuevo-proyecto
+git clone https://github.com/JonathanLara27/ng-clean-spa-seed nuevo-proyecto
 cd nuevo-proyecto
 
 ```
