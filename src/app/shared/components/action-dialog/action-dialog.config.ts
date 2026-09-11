@@ -42,10 +42,10 @@ export const APP_DIALOGS = {
     confirmacionGeneral: <ActionDialogData>{
         iconType: 'svg',
         icon: 'warning.svg',
-        title: '¿Estás seguro?', // Texto por defecto, se suele sobreescribir
-        subtitle: 'Esta acción no se puede deshacer.', // Opcional
-        cancelText: 'Cancelar',
-        confirmText: 'Aceptar',
+        title: '¿Estás seguro que desea realizar esta accion?', // Texto por defecto, se suele sobreescribir
+        subtitle: 'Esta accion no se puede deshacer.', // Opcional
+        cancelText: 'No',
+        confirmText: 'Si',
         showCancelButton: true,
     },
 

@@ -1,0 +1,32 @@
+// ==========================================
+// 📐 LAYOUT Y DISPLAY
+// ==========================================
+
+.w-full { width: 100% !important; }
+.d-flex { display: flex !important; }
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-grow { flex-grow: 1; }
+.flex-wrap { flex-wrap: wrap !important; }
+
+.justify-start { justify-content: flex-start !important; }
+.justify-center { justify-content: center !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-end { justify-content: flex-end !important; }
+
+.align-start { align-items: flex-start !important; }
+.align-center { align-items: center !important; }
+.align-between { align-content: space-between !important; }
+.align-end { align-items: flex-end !important; }
+
+// ==========================================
+// 🚀 MAX WIDTHS DINÁMICOS
+// ==========================================
+$width-iterator: 100;
+@for $i from 1 through 5 {
+  $max-width: $width-iterator * $i;
+  .max-w-#{$max-width} {
+    max-width: $max-width + px !important;
+    width: 100%; 
+  }
+}

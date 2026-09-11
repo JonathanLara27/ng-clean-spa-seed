@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -12,10 +13,14 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './top-bar.scss',
 })
 export class TopBar {
-  // Simulamos los datos que vendrían de tu lógica global
-  public breadcrumbPath = signal('Home');
-  public currentRouteName = signal('Gestión de Campañas');
+  // Inyección de dependencias (Principio de Inversión de Dependencias)
+  private readonly breadcrumbService = inject(BreadcrumbService);
 
-  public userName = signal('Sra. Pilar');
-  public userRole = signal('Bienvenido');
+  // Señales expuestas a la vista delegadas al servicio
+  public readonly breadcrumbPath = this.breadcrumbService.path;
+  public readonly currentRouteName = this.breadcrumbService.currentRoute;
+
+  // Estos datos luego podrán venir de un UserService o AuthStore
+  public readonly userName = signal('Sra. Pilar');
+  public readonly userRole = signal('Bienvenido');
 }

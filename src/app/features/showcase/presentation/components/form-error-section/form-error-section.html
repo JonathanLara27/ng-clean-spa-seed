@@ -1,0 +1,65 @@
+
+<section class="my-2">
+    <form (ngSubmit)="onSubmit($event)" #formErrorSectionRef="ngForm">
+        <div class="d-grid grid-cols-3 my-3">
+            <div class="form-group">
+                <app-form-field-label text="Nombre" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.nombre" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="nombre" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Apellido" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.apellidos" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="apellidos" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Fecha de nacimiento" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.fechaNacimiento" type="date" class="form-control" />
+                <app-form-field-error [form]="form" field="fechaNacimiento" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Genero" [isRequired]="true"></app-form-field-label>
+                <select [formField]="form.genero" class="form-control">
+                    <option value="">Seleccionar genero</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="femenino">Femenino</option>
+                    <option value="otro">Otro</option>
+                </select>
+                <app-form-field-error [form]="form" field="genero" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Correo electronico" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.email" type="email" class="form-control" />
+                <app-form-field-error [form]="form" field="email" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Telefono" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.telefono" type="tel" class="form-control" placeholder="Ejemplo: 999777333" />
+                <app-form-field-error [form]="form" field="telefono" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Direccion" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.direccion" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="direccion" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Ciudad" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.ciudad" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="ciudad" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Codigo postal" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.codigoPostal" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="codigoPostal" />
+            </div>
+            <div class="form-group">
+                <app-form-field-label text="Pais" [isRequired]="true"></app-form-field-label>
+                <input [formField]="form.pais" type="text" class="form-control" />
+                <app-form-field-error [form]="form" field="pais" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-primary" [disabled]="form().submitting()">Guardar</button>
+        </div>
+    </form>
+</section>

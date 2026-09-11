@@ -1,0 +1,161 @@
+// ==========================================
+// ✍️ INPUTS, SELECTS Y TEXTAREAS
+// ==========================================
+
+.form-control {
+    background-color: var(--rs-input-bg);
+    border: 1px solid var(--rs-input-border);
+    border-radius: 24px;
+    padding: 0 20px;
+    height: 44px;
+    font-size: 14px;
+    color: var(--rs-text-primary);
+    width: 100%;
+    transition: all 0.2s ease;
+    outline: none;
+    box-sizing: border-box;
+
+    &:first-of-type {
+        margin-top: 0;
+    }
+
+    &:focus {
+        border-color: rgba(1, 56, 123, 0.3);
+        box-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+    }
+
+    &.ng-invalid.ng-touched,
+    &.ng-invalid.ng-dirty {
+        border-color: var(--rs-error-color);
+        background-color: #fef2f2;
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+        }
+    }
+
+    &:disabled {
+        background-color: var(--rs-disabled-bg) !important;
+        color: var(--rs-disabled-text) !important;
+        border-color: var(--rs-disabled-border) !important;
+        cursor: not-allowed !important;
+        opacity: 1 !important;
+
+        &.ng-invalid {
+            border-color: var(--rs-disabled-border) !important;
+            background-color: var(--rs-disabled-bg) !important;
+        }
+    }
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .form-control.has-suffix {
+        padding-right: 44px;
+    }
+
+    .icon-suffix {
+        position: absolute;
+        right: 16px;
+        color: var(--rs-error-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+
+        mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            cursor: help;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cc1d23' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed !important;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+    }
+}
+
+select[multiple].form-control {
+    height: auto;
+    min-height: 120px;
+    padding: 12px;
+    border-radius: 16px;
+    background-image: none;
+
+    option {
+        padding: 8px 12px;
+        margin-bottom: 4px;
+        border-radius: 8px;
+        font-size: 14px;
+
+        &:checked {
+            background-color: rgba(1, 56, 123, 0.1);
+            color: var(--rs-text-primary);
+            font-weight: 600;
+        }
+    }
+}
+
+.form-textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: var(--rs-input-bg);
+    border: 1px solid var(--rs-input-border);
+    border-radius: 12px;
+    padding: 16px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--rs-text-primary);
+    resize: vertical;
+    min-height: 120px;
+    outline: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+        border-color: rgba(1, 56, 123, 0.3);
+        box-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+    }
+
+    &.ng-invalid.ng-touched,
+    &.ng-invalid.ng-dirty {
+        border-color: var(--rs-error-color);
+        background-color: #fef2f2;
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+        }
+    }
+
+    &:disabled {
+        background-color: var(--rs-disabled-bg) !important;
+        color: var(--rs-disabled-text) !important;
+        border-color: var(--rs-disabled-border) !important;
+        cursor: not-allowed !important;
+        opacity: 1 !important;
+
+        &.ng-invalid {
+            border-color: var(--rs-disabled-border) !important;
+            background-color: var(--rs-disabled-bg) !important;
+        }
+    }
+}

@@ -1,0 +1,77 @@
+<div class="demo-page">
+
+    <!-- 🔹 CONTENEDOR PRINCIPAL (Izquierda) -->
+    <div class="demo-page__content">
+
+        <header class="demo-page__header">
+            <h1>UI Components Showcase</h1>
+            <p>Explora y copia los componentes visuales disponibles en esta arquitectura semilla.</p>
+        </header>
+
+        <!-- Sección 1: Reusable Table (Se carga inmediato) -->
+        <section id="reusable-table" #demoSection class="demo-section">
+            <h2 class="demo-section__title">Reusable Table con Paginator</h2>
+            <div class="demo-section__body">
+                <!-- Aquí irá: <app-demo-reusable-table /> -->
+                <app-customer-section></app-customer-section>
+            </div>
+        </section>
+
+        <!-- Sección 2: Action Dialog (Lazy Loading con defer) -->
+        <section id="action-dialog" #demoSection class="demo-section">
+            <h2 class="demo-section__title">Action Dialog</h2>
+            <div class="demo-section__body">
+                @defer (on viewport) {
+                <!-- <app-demo-action-dialog /> -->
+                <app-action-dialog-section></app-action-dialog-section>
+                } @placeholder {
+                <div class="demo-skeleton">Cargando Action Dialog...</div>
+                }
+            </div>
+        </section>
+
+        <!-- Sección 3 y 4... (Misma estructura) -->
+        <section id="banner" #demoSection class="demo-section">
+            <h2 class="demo-section__title">Banners</h2>
+            <div class="demo-section__body">
+                @defer (on timer(1s)) {
+                <app-banner-section></app-banner-section>
+                } @placeholder {
+                <div class="demo-skeleton">Cargando Banners...</div>
+                }
+            </div>
+        </section>
+
+        <section id="form-error" #demoSection class="demo-section">
+            <h2 class="demo-section__title">Form Error Label</h2>
+            <div class="demo-section__body">
+                @defer (on timer(1s)) {
+                <app-form-error-section></app-form-error-section>
+                } @placeholder {
+                <div class="demo-skeleton">Cargando Form Error Label...</div>
+                }
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 🔹 BARRA FLOTANTE (Derecha) -->
+    <aside class="demo-page__sidebar">
+        <div class="toc">
+            <h3 class="toc__title">En esta página</h3>
+            <nav class="toc__nav">
+                <ul>
+                    @for (section of sections(); track section.id) {
+                    <li>
+                        <button class="toc__link" [class.toc__link--active]="activeSection() === section.id"
+                            (click)="scrollTo(section.id)">
+                            {{ section.label }}
+                        </button>
+                    </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+</div>

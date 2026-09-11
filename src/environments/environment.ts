@@ -1,6 +1,7 @@
 import { Environment } from "../app/core/tokens/environment.token";
 
 export const environment: Environment = {
-    production: false,
+    production: true,
+    showcaseEnabled: false,
     apiUrl: 'https://api.example.com'
 };

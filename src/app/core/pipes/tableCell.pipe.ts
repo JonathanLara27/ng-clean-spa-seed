@@ -9,7 +9,7 @@ import { TableColumn } from "../../shared/components/reusable-table/table-config
 export class TableCellPipe<T> implements PipeTransform {
     transform(row: T, col: TableColumn<T>, type: 'value' | 'class'): any {
         if (type === 'value') {
-            return col.formatter ? col.formatter(row) : (row as Record<string, any>)[col.key];
+            return col.formatter ? col.formatter(row) : (row as Record<PropertyKey, any>)[col.key];
         }
         if (type === 'class') {
             if (!col.cellClass) return '';

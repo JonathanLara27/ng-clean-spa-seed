@@ -1,0 +1,26 @@
+// ==========================================
+// 🎨 UTILITIES: BACKGROUNDS
+// ==========================================
+:root {
+    --rs-group-controls-table-bg: #f3f9ff;
+}
+
+.bg-controls-table {
+    background-color: var(--rs-group-controls-table-bg, #f3f9ff) !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+.bg-red-500 {
+    background-color: var(--rs-red-500, #db0a0a) !important;
+}
+
+.bg-blue-500 {
+    background-color: var(--rs-blue-500, #2271bf) !important;
+}

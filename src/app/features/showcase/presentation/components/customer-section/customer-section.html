@@ -1,0 +1,25 @@
+<section class="bg-controls-table d-flex justify-between align-center p-3">
+
+    <div class="search-container variant-tab max-w-300">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Búsqueda local" [formControl]="searchControl">
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="openModalUpsert()">
+        <span class="btn-text">{{headerConfig.actionButton?.text}}</span>
+        <mat-icon class="btn-icon">{{headerConfig.actionButton?.icon}}</mat-icon>
+    </button>
+
+</section>
+
+<section class="py-1 px-4">
+    <app-reusable-table [data]="state.data()" [columns]="columns" [actions]="actions" [searchTerm]="searchControl.value!"
+        [isLoading]="state.isLoading()" [maxActionsVisible]="4" [actionsGridCols]="3"
+        (actionClicked)="onAction($event)">
+    </app-reusable-table>
+
+    <app-custom-paginator [totalItems]="state.total()" [currentPage]="state.page()" [pageSize]="state.limit()"
+        [showPageSizeOptions]="true" [showFirstLastButtons]="true" (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)">
+    </app-custom-paginator>
+</section>

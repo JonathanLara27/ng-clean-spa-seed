@@ -1,0 +1,17 @@
+<div class="header-content">
+    <h1 class="page-title">{{ config().title }}</h1>
+
+    @if (config().subtitle) {
+    <p class="page-subtitle text-muted mt-1">{{ config().subtitle }}</p>
+    }
+</div>
+
+@if (config().actionButton) {
+<button type="button" class="btn" [class]="buttonClass()" (click)="onActionClick()">
+    <span class="btn-text">{{ config().actionButton!.text }}</span>
+
+    @if (config().actionButton!.icon) {
+    <mat-icon class="btn-icon">{{ config().actionButton!.icon }}</mat-icon>
+    }
+</button>
+}

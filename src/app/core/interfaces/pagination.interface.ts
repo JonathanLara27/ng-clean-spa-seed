@@ -59,4 +59,4 @@ export interface FilterParam {
     value: any;
 }
 
-export const PAGE_SIZE_OPTIONS_DEFAULT = [10, 20, 50, 75, 100];
+export const PAGE_SIZE_OPTIONS_DEFAULT = [5, 10, 20];

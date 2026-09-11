@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 12px;
+  flex-wrap: wrap; // 📱 Responsividad básica
+  gap: 16px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0; // Ajuste móvil
+  }
+}
+
+.page-title {
+  color: var(--rs-title-color);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  margin: 4px 0 0 0;
+}

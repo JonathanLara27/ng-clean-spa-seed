@@ -1,0 +1,30 @@
+<div class="alert-banner" [ngClass]="'alert-' + bannerType()">
+
+  <!-- Ícono Dinámico -->
+  <mat-icon class="alert-icon">{{ bannerIcon() }}</mat-icon>
+
+  <!-- Contenido de Texto -->
+  <div class="alert-content">
+    @if (config().title; as titleText) {
+    <h4 class="alert-title">{{ titleText }}</h4>
+    }
+
+    <p class="alert-message" [innerHTML]="config().message"></p>
+
+    <!-- Acciones Opcionales (Botones) -->
+    @if (hasActions()) {
+    <div class="d-flex gap-2 mt-2">
+      <!-- 🔹 Botón Secundario (Descartar) con Outline dinámico -->
+      <button type="button" class="btn btn-sm" [ngClass]="secondaryButtonClass()" (click)="onDiscard.emit()">
+        {{ discardLabel() }}
+      </button>
+
+      <!-- 🔹 Botón Primario (Recuperar) con Fondo sólido dinámico -->
+      <button type="button" class="btn btn-sm" [ngClass]="primaryButtonClass()" (click)="onRecover.emit()">
+        {{ recoverLabel() }}
+      </button>
+    </div>
+    }
+  </div>
+
+</div>

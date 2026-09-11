@@ -1,0 +1,48 @@
+:root {
+    // BADGES
+    --rs-badge-active-bg: #EAF7EC;
+    --rs-badge-active-text: #00A651;
+
+    --rs-badge-inactive-bg: #fef2f2;
+    --rs-badge-inactive-text: #b91c1c;
+
+    --rs-badge-default-bg: #f1f5f9;
+    --rs-badge-default-text: #475569;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 24px;
+    min-width: 120px;
+    border-radius: 8px;
+
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+// ESTADO ACTIVO
+.badge-activo .status-badge,
+.badge-activo.status-badge {
+    background-color: var(--rs-badge-active-bg);
+    color: var(--rs-badge-active-text);
+}
+
+// ESTADO INACTIVO
+.badge-inactivo .status-badge,
+.badge-inactivo.status-badge {
+    background-color: var(--rs-badge-inactive-bg);
+    color: var(--rs-badge-inactive-text);
+}
+
+//DEFAULT
+
+.badge-default .status-badge,
+.badge-default.status-badge {
+    background-color: var(--rs-badge-default-bg);
+    color: var(--rs-badge-default-text);
+}

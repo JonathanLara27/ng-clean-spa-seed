@@ -1,0 +1,50 @@
+// ==========================================
+// 🔘 RADIO BUTTONS CUSTOM
+// ==========================================
+
+.radio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    color: var(--rs-text-secondary);
+    font-size: 16px;
+    font-weight: 400;
+    transition: color 0.2s ease;
+
+    input[type="radio"] {
+        display: none;
+    }
+
+    .radio-circle {
+        width: 24px;
+        height: 24px;
+        border: 1.5px solid var(--rs-error-color);
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+        transition: all 0.2s ease-in-out;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 12px;
+            height: 12px;
+            background-color: var(--rs-error-color);
+            border-radius: 50%;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    }
+
+    input[type="radio"]:checked + .radio-circle::after {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &.active,
+    &:hover {
+        color: var(--rs-text-primary);
+    }
+}

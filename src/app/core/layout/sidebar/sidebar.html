@@ -26,10 +26,10 @@
                 <!-- Item Clickable -->
                 <a class="sidebar__link" [routerLink]="item.children ? null : item.route"
                     [routerLinkActive]="!item.children ? 'sidebar__link--active' : ''"
+                    [class.sidebar__link--open]="item.children && activeSubmenu() === item.id"
                     (click)="item.children ? toggleSubmenu(item.id) : null" [matTooltip]="item.label"
                     [matTooltipDisabled]="!isCollapsed()" matTooltipPosition="right">
 
-                    <!-- Reemplazas el <span> con [innerHTML] por esto: -->
                     @if (item.icon) {
                     <mat-icon class="sidebar__icon">{{ item.icon }}</mat-icon>
                     }
@@ -54,6 +54,12 @@
                     <li>
                         <a class="sidebar__sublink" [routerLink]="child.route"
                             routerLinkActive="sidebar__sublink--active">
+                            @if (child.icon) {
+                            <mat-icon class="sidebar__icon">{{ child.icon }}</mat-icon>
+                            }
+                            @if (child.svgIcon) {
+                            <mat-icon class="sidebar__icon" [svgIcon]="child.svgIcon"></mat-icon>
+                            }
                             <span class="sidebar__label">{{ child.label }}</span>
                         </a>
                     </li>

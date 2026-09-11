@@ -1,0 +1,36 @@
+<section class="my-2">
+    <div class="p-4">
+        <h2>Formulario para accion de abrir modal antes de eliminar un registro</h2>
+    </div>
+    <form (submit)="deleteSubmit($event)">
+        <div class="d-grid grid-cols-12 my-3">
+            <div class="form-group col-span-5">
+                <app-form-field-label text="Entidad a eliminar" [isRequired]="true">
+                </app-form-field-label>
+                <input [formField]="deleteForm.entityDisplayName" placeholder="Ej: Pepito 123" class="form-control" />
+                <app-form-field-error [form]="deleteForm" field="entityDisplayName" />
+            </div>
+
+            <div class="form-group col-span-5">
+                <app-form-field-label text="Mensaje de éxito" [isRequired]="true">
+                </app-form-field-label>
+                <input [formField]="deleteForm.succesMessage" placeholder="Ej: Registro eliminado correctamente"
+                    class="form-control" />
+                <app-form-field-error [form]="deleteForm" field="succesMessage" />
+            </div>
+            <div class="col-span-2 d-flex align-end justify-end">
+                <button type="submit" class=" btn btn-secondary">Eliminar</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<section class="my-2">
+    <div class="p-4">
+        <h2>Acciones predeterminadas</h2>
+    </div>
+    <div class="grid-auto">
+        <button type="button" class="btn btn-primary" (click)="openConfirmationAction()">Abrir confirmacion general</button>
+        <button type="button" class="btn btn-primary" (click)="openUnsavedChanges()">Abrir cambios sin guardar</button>
+    </div>
+</section>

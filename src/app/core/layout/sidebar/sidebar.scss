@@ -159,33 +159,46 @@
     transition: height var(--sb-transition);
   }
 
+  // =========================================
+  // SUBMENÚS
+  // =========================================
   &__sublink {
     display: flex;
     align-items: center;
     height: var(--sb-item-height);
-    padding: 0 24px 0 64px; // Sangría para subnivel
+    padding: 0 24px 0 64px;
     color: var(--sb-text-muted);
     text-decoration: none;
     font-size: 13.5px;
     white-space: nowrap;
     transition: all 0.2s;
 
-    &:hover,
-    &--active {
+    &:hover {
       color: var(--sb-text);
       font-weight: 600;
+    }
+
+    // 🔥 El estilo idéntico a tu referencia para el submenú
+    &--active {
+      color: var(--rs-color-primary, #cc1d23);
+      font-weight: 600;
+      // Usamos rgba para darle ese fondo rojizo casi transparente
+      background-color: rgba(204, 29, 35, 0.08);
     }
   }
 
   // Estado Activo Nivel 1
-  &__link--active {
+  &__link--active,
+  &__link--open {
     color: var(--sb-text);
     background-color: var(--sb-active-bg);
 
-    .sidebar__icon {
-      color: var(--sb-active-indicator);
+    .sidebar__icon,
+    .sidebar__arrow {
+      color: var(--rs-color-primary, #cc1d23);
     }
 
+    // La barrita lateral izquierda
     &::before {
       content: '';
       position: absolute;
@@ -193,8 +206,13 @@
       top: 0;
       bottom: 0;
       width: 4px;
-      background-color: var(--sb-active-indicator);
+      background-color: var(--rs-color-primary, #cc1d23);
       border-radius: 0 4px 4px 0;
+    }
+
+    // Fondo solo si es un enlace directo sin hijos
+    &__link--active {
+      background-color: var(--sb-active-bg);
     }
   }
 

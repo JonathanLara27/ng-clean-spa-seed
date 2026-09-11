@@ -1,3 +1,12 @@
+:root {
+    // 🎨 Tokens Base para Botones Semánticos
+    --rs-color-success: #22c55e;
+    --rs-color-info: #3b82f6;
+    --rs-color-warning: #f59e0b; // Ámbar ligeramente más brillante para legibilidad
+    --rs-color-error: var(--rs-error-color, #ef4444); // Reutilizamos tu token existente si existe
+    --rs-color-neutral: #64748b;
+}
+
 // 📦 Base del Botón con Tokens Locales
 .btn {
     // 1. Definición de variables internas (Por defecto transparentes)
@@ -79,4 +88,94 @@
     --btn-text: var(--rs-color-secondary);
     --btn-hover-bg: color-mix(in srgb, var(--rs-color-secondary), transparent 90%);
     --btn-hover-border: var(--rs-color-secondary);
+}
+
+// ==========================================
+// 🟢 MODIFICADOR: Success
+// ==========================================
+.btn-success {
+    --btn-bg: var(--rs-color-success);
+    --btn-text: #ffffff;
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-success), black 15%);
+    --btn-shadow: 0 4px 8px rgba(34, 197, 94, 0.3);
+}
+
+.btn-outline-success {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-success);
+    --btn-text: var(--rs-color-success);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-success), transparent 90%);
+    --btn-hover-border: var(--rs-color-success);
+}
+
+// ==========================================
+// 🔵 MODIFICADOR: Info
+// ==========================================
+.btn-info {
+    --btn-bg: var(--rs-color-info);
+    --btn-text: #ffffff;
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-info), black 15%);
+    --btn-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.btn-outline-info {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-info);
+    --btn-text: var(--rs-color-info);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-info), transparent 90%);
+    --btn-hover-border: var(--rs-color-info);
+}
+
+// ==========================================
+// 🟠 MODIFICADOR: Warning
+// ==========================================
+.btn-warning {
+    --btn-bg: var(--rs-color-warning);
+    --btn-text: #ffffff;
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-warning), black 15%);
+    --btn-shadow: 0 4px 8px rgba(245, 158, 11, 0.3);
+}
+
+.btn-outline-warning {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-warning);
+    --btn-text: var(--rs-color-warning);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-warning), transparent 90%);
+    --btn-hover-border: var(--rs-color-warning);
+}
+
+// ==========================================
+// 🔴 MODIFICADOR: Error
+// ==========================================
+.btn-error {
+    --btn-bg: var(--rs-color-error);
+    --btn-text: #ffffff;
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-error), black 15%);
+    --btn-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-outline-error {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-error);
+    --btn-text: var(--rs-color-error);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-error), transparent 90%);
+    --btn-hover-border: var(--rs-color-error);
+}
+
+// ==========================================
+// ⚪ MODIFICADOR: Neutral
+// ==========================================
+.btn-neutral {
+    --btn-bg: var(--rs-color-neutral);
+    --btn-text: #ffffff;
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-neutral), black 15%);
+    --btn-shadow: 0 4px 8px rgba(100, 116, 139, 0.3);
+}
+
+.btn-outline-neutral {
+    --btn-bg: transparent;
+    --btn-border: var(--rs-color-neutral);
+    --btn-text: var(--rs-color-neutral);
+    --btn-hover-bg: color-mix(in srgb, var(--rs-color-neutral), transparent 90%);
+    --btn-hover-border: var(--rs-color-neutral);
 }

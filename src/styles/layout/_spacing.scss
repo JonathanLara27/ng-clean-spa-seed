@@ -1,0 +1,31 @@
+// ==========================================
+// 📏 MOTOR DE ESPACIADO DINÁMICO
+// ==========================================
+$spacer-base: 4px;
+
+@for $i from 0 through 9 {
+  $size: $i * $spacer-base;
+
+  .p-#{$i} { padding: #{$size} !important; }
+  .pt-#{$i} { padding-top: #{$size} !important; }
+  .pb-#{$i} { padding-bottom: #{$size} !important; }
+  .pl-#{$i} { padding-left: #{$size} !important; }
+  .pr-#{$i} { padding-right: #{$size} !important; }
+  .px-#{$i} { padding-left: #{$size} !important; padding-right: #{$size} !important; }
+  .py-#{$i} { padding-top: #{$size} !important; padding-bottom: #{$size} !important; }
+
+  .m-#{$i} { margin: #{$size} !important; }
+  .mt-#{$i} { margin-top: #{$size} !important; }
+  .mb-#{$i} { margin-bottom: #{$size} !important; }
+  .ml-#{$i} { margin-left: #{$size} !important; }
+  .mr-#{$i} { margin-right: #{$size} !important; }
+  .mx-#{$i} { margin-left: #{$size} !important; margin-right: #{$size} !important; }
+  .my-#{$i} { margin-top: #{$size} !important; margin-bottom: #{$size} !important; }
+
+  .gap-#{$i} { gap: #{$size} !important; }
+}
+
+.mt-auto { margin-top: auto !important; }
+.mb-auto { margin-bottom: auto !important; }
+.ml-auto { margin-left: auto !important; }
+.mr-auto { margin-right: auto !important; }

@@ -3,12 +3,15 @@
 
 @use 'base/reset';
 @use 'base/typography';
-@use 'base/utilities';
 
-@use 'layout/grid';
+@use 'layout';
+
 @use 'themes/material-theme';
 
 @use 'components/snackbar';
 @use 'components/banner';
 @use 'components/dialog';
 @use 'components/buttons';
+@use 'components/badges';
+
+@use 'components/forms';

@@ -1,0 +1,47 @@
+// 🔍 Buscador Reutilizable Global
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: var(--rs-input-radius);
+    // width: 300px;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+    // ESTILOS POR DEFECTO (Los que usas en el resto de páginas)
+    background: #f1f5f9;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+
+    &:focus-within {
+        box-shadow: 0 0 0 2px rgba(1, 56, 123, 0.1);
+    }
+
+    mat-icon {
+        color: var(--rs-title-color);
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    input {
+        border: none;
+        background: transparent;
+        outline: none;
+        width: 100%;
+        color: var(--rs-text-primary);
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
+
+    // 🚀 MODIFICADOR PARA TABS (Sobreescribe solo lo necesario)
+    &.variant-tab {
+        background: var(--rs-white);
+        height: 40px;
+        padding: 0 16px;
+        border-color: var(--rs-border-medium);
+
+        input {
+            height: 100%; // Forzamos a que tome los 40px
+        }
+    }
+}

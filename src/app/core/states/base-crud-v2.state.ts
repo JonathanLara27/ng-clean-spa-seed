@@ -1,6 +1,6 @@
 import { computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
+import { catchError, firstValueFrom, Observable, throwError, tap } from 'rxjs';
 import { CrudState } from '../interfaces/crud-state.interface';
 import { NotificationService } from '../services/notification.service';
 
@@ -15,6 +15,10 @@ export abstract class BaseCrudStateV2<T extends { id: number | string }, F = any
 
     // Opcional: Señal para controlar el loading durante las mutaciones (crear, editar, etc.)
     protected _isMutating = signal<boolean>(false);
+
+    // 🔥 NUEVO: Señales internas para retener la data mientras carga
+    protected _data = signal<T[]>([]);
+    protected _total = signal<number>(0);
 
     // ==========================================
     // CONTRATOS (Los hijos DEBEN implementar esto)
@@ -45,10 +49,14 @@ export abstract class BaseCrudStateV2<T extends { id: number | string }, F = any
         }),
         stream: ({ params }) => {
             return this.fetchRequest(params.page, params.limit, params.filters).pipe(
+                tap(response => {
+                    this._data.set(response.data);
+                    this._total.set(response.total);
+                }),
                 catchError((error: Error) => {
                     const errorMsg = error?.message || 'Error inesperado';
                     this.notify.error(`Error al cargar ${this.getEntityName()}: ${errorMsg}`);
-                    
+
                     // 🔥 CORRECCIÓN CRÍTICA: En lugar de devolver EMPTY, relanzamos el error.
                     // Esto permite que el resource actualice su señal interna .error() y evitamos el error NG0991.
                     return throwError(() => new Error(errorMsg));
@@ -61,20 +69,20 @@ export abstract class BaseCrudStateV2<T extends { id: number | string }, F = any
     // SEÑALES EXPUESTAS A LA VISTA
     // ==========================================
     // Extraemos los datos del valor resuelto del recurso
-    public data = computed(() => this.resource.value()?.data ?? []);
-    public total = computed(() => this.resource.value()?.total ?? 0);
-    
+    public data = this._data.asReadonly();
+    public total = this._total.asReadonly();
+
     // El loading global es true si el recurso está cargando o si estamos mutando algo
     public isLoading = computed(() => this.resource.isLoading() || this._isMutating());
-    
+
     public page = this._page.asReadonly();
     public limit = this._limit.asReadonly();
 
     // ==========================================
     // MÉTODOS DE LECTURA (Desencadenan recargas automáticas)
     // ==========================================
-    public loadData(): void { 
-        this.resource.reload(); 
+    public loadData(): void {
+        this.resource.reload();
     }
 
     public changePage(newPage: number): void {

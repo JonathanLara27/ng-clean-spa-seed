@@ -1,0 +1,38 @@
+// ==========================================
+// 🎚️ SEGMENTED TOGGLE BUTTONS
+// ==========================================
+
+.radio-group-segmented {
+    display: inline-flex;
+    background-color: var(--rs-page-bg, #f8fafc);
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid var(--rs-border-light);
+
+    button {
+        padding: 8px 16px;
+        border-radius: 6px;
+        border: none;
+        background-color: transparent;
+
+        color: var(--rs-title-color);
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.active {
+            background-color: var(--rs-btn-info-bg);
+            color: var(--rs-white);
+            box-shadow: var(--rs-shadow-sm);
+        }
+
+        &:hover:not(.active) {
+            background-color: rgba(1, 56, 123, 0.05);
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

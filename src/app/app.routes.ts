@@ -10,8 +10,9 @@ export const APP_ROUTES: Routes = [
 
     // Rutas privadas (Envueltas en el MainLayout)
     {
-        path: '',
+        path: 'ui-kits-docs',
         component: MainLayout, // Este componente renderiza el <app-sidebar>
+        loadChildren: () => import('./features/showcase/showcase.routes').then(m => m.SHOW_CASE_ROUTES)
         // canActivate: [authGuard],
         // children: [
         //     {
@@ -28,5 +29,5 @@ export const APP_ROUTES: Routes = [
     },
 
     // Catch all
-    { path: '**', redirectTo: 'login' }
+    { path: '**', redirectTo: 'ui-kits-docs' }
 ];

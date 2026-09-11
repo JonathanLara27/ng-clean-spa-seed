@@ -1,3 +1,5 @@
+@use '../abstracts/mixins' as mix;
+
 /* ==========================================================================
    CONFIGURACIÓN BASE DEL BODY
    ========================================================================== */
@@ -55,4 +57,45 @@ $font-sizes: 11, 12, 13, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40;
     font-size: #{$size}px !important;
     line-height: 1.2 !important;
   }
+}
+
+
+// ==========================================
+// 📝 TIPOGRAFÍA Y COLORES DE TEXTO
+// ==========================================
+
+.text-primary {
+  color: var(--rs-title-color, #01387B) !important;
+}
+
+.text-body {
+  color: var(--rs-text-primary, #4f5461) !important;
+}
+
+.text-muted {
+  color: var(--rs-text-secondary, #80848E) !important;
+}
+
+.text-danger {
+  color: var(--rs-error-color, #db0a0a) !important;
+}
+
+.text-success {
+  color: var(--rs-color-success, #4BBD60) !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-truncate {
+  @include mix.text-truncate;
 }

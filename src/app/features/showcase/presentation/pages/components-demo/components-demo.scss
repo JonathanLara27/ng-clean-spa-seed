@@ -1,0 +1,126 @@
+.demo-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px; // La barra derecha mide 250px fijos
+  gap: 48px;
+  position: relative;
+  align-items: start; // Crucial para que el sticky funcione
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; // Mucho espacio entre secciones para que el scroll sea notorio
+    padding-bottom: 120px;
+  }
+
+  &__header {
+    h1 {
+      font-size: 32px;
+      color: var(--rs-title-color, #01387b);
+      margin-bottom: 8px;
+    }
+    p {
+      color: var(--rs-text-secondary, #64748b);
+      font-size: 16px;
+    }
+  }
+
+  // 🔹 Estilos de cada bloque de componente
+  .demo-section {
+    &__title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--rs-text-primary, #334155);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--rs-border-light, #e2e8f0);
+    }
+    &__body {
+      // card
+      background-color: var(--rs-white, #ffffff);
+      border: 1px solid var(--rs-border-light, #e2e8f0);
+      border-radius: var(--rs-card-radius, 16px);
+      padding: 24px;
+    }
+  }
+
+  // 🔹 Esqueleto de carga para el defer
+  .demo-skeleton {
+    height: 200px;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rs-text-secondary, #64748b);
+  }
+
+  // 🔹 Barra flotante Table of Contents (ToC)
+  &__sidebar {
+    position: sticky;
+    top: 32px; // Distancia desde la cabecera cuando hace scroll
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+
+  .toc {
+    &__title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--rs-text-primary, #334155);
+      margin-bottom: 16px;
+    }
+
+    &__nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-left: 2px solid var(--rs-border-light, #e2e8f0);
+    }
+
+    &__link {
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-size: 14px;
+      color: var(--rs-text-secondary, #64748b);
+      cursor: pointer;
+      padding: 6px 16px;
+      width: 100%;
+      position: relative;
+      transition: all 0.2s ease;
+      font-family: inherit;
+
+      &:hover {
+        color: var(--rs-color-primary, #cc1d23);
+      }
+
+      // El indicador rojo de activo
+      &--active {
+        color: var(--rs-color-primary, #cc1d23);
+        font-weight: 600;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: -2px; // Se sobrepone al borde gris de la lista
+          top: 0;
+          bottom: 0;
+          width: 2px;
+          background-color: var(--rs-color-primary, #cc1d23);
+        }
+      }
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

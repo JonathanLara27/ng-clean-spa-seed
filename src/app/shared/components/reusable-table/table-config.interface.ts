@@ -1,8 +1,8 @@
 export type ColumnType = 'text' | 'badge' | 'array' | 'stacked';
 
 export interface TableColumn<T> {
-    // key: keyof T;
-    key: string;
+    key: keyof T;
+    // key: string;
     label: string;
     type?: ColumnType;
     headerClass?: string;

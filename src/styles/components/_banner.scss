@@ -2,9 +2,17 @@
    Alert Banners (Componente Reutilizable)
    Clases disponibles: .alert-info, .alert-warning, .alert-neutral
    ========================================== */
-:host {
+:root {
     // 🚩 Variables de Banners / Alertas (Componente Alert-Banner)
     // ---------------------------------------------------------
+
+    // Variante : Success (Verde)
+    --rs-banner-success-bg: #f0fdf4; // Fondo verde muy suave
+    --rs-banner-success-border: #bbf7d0; // Borde verde claro
+    --rs-banner-success-icon: #22c55e; // Icono verde brillante
+    --rs-banner-success-title: #14532d; // Título verde oscuro
+    --rs-banner-success-text: #166534; // Texto verde intermedio (o puedes dejar #334155 si prefieres gris)
+
     // Variante: INFO (Azul)
     --rs-banner-info-bg: #eff6ff;
     --rs-banner-info-border: #bfdbfe;
@@ -22,7 +30,7 @@
     // Variante: ERROR (Rojo)
     --rs-banner-error-bg: #fef2f2;
     --rs-banner-error-border: #fecaca;
-    --rs-banner-error-icon: var(--rs-error-color, #cc1d23); // Reutilizamos tu rojo base
+    --rs-banner-error-icon: var(--rs-error-color, #cc1d23);
     --rs-banner-error-title: #991b1b;
     --rs-banner-error-text: #b91c1c;
 
@@ -75,6 +83,27 @@
     /* ------------------------------
        Variantes de Color
        ------------------------------ */
+
+    &.alert-success {
+        background-color: var(--rs-banner-success-bg);
+        border-color: var(--rs-banner-success-border);
+
+        .alert-icon {
+            color: var(--rs-banner-success-icon);
+        }
+
+        .alert-title {
+            color: var(--rs-banner-success-title);
+        }
+
+        .alert-message {
+            color: var(--rs-banner-success-text);
+
+            strong {
+                color: var(--rs-banner-success-title);
+            }
+        }
+    }
 
     &.alert-info {
         background-color: var(--rs-banner-info-bg);
