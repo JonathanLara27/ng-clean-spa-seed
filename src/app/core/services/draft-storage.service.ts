@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SecureStorageService } from './secureStorage.service';
+import { SecureStorageService } from './secure-storage.service';
 
 @Injectable({
     providedIn: 'root'
