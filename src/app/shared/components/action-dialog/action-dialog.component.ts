@@ -20,7 +20,6 @@ import { ActionDialogData } from './action-dialog.interface';
     FormError
   ],
   templateUrl: './action-dialog.component.html',
-  styleUrl: './action-dialog.component.scss',
 })
 export class ActionDialogComponent {
 

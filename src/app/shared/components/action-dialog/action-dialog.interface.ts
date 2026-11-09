@@ -12,4 +12,9 @@ export interface ActionDialogData {
     inputLabel?: string;
     inputPlaceholder?: string;
     isRequired?: boolean; // Para exigir el motivo obligatoriamente
+    
+    note?: {
+        title: string;
+        text: string;
+    };
 }

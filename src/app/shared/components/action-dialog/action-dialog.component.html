@@ -10,38 +10,45 @@
     </div>
     }
 
-    <h2 class="text-primary fs-24 font-bold mb-6 text-center">{{ data.title }}</h2>
+    <h2 class="text-primary fs-24 font-bold mb-3 text-center">{{ data.title }}</h2>
 
     @if (data.subtitle) {
     <p class="text-muted fs-16 font-normal text-center">{{ data.subtitle }}</p>
     }
 
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="my-2">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="my-3">
         @if (data.showTextArea) {
         <div class="form-group w-full text-left">
             <app-form-label [text]="data.inputLabel || 'Motivo'" [control]="formGroup.get('motivo')"></app-form-label>
-        
+
             <textarea class="form-textarea w-full" formControlName="motivo" autocomplete="off"
                 [placeholder]="data.inputPlaceholder || 'Ingrese el motivo aquí...'" rows="3">
                 </textarea>
-        
+
             <app-form-error [control]="formGroup.get('motivo')"></app-form-error>
         </div>
         }
-    
+
+        <!-- Nota -->
+        @if (data.note) {
+        <p class="fs-14 my-3">
+            <span class="text-primary font-bold">{{data.note.title}}: </span>
+            <span>{{data.note.text}}</span>
+        </p>
+        }
+
         <div class="grid-cols-2 gap-4 mt-6">
             @if (data.showCancelButton !== false) {
             <button type="button" class="btn btn-outline-secondary w-full" (click)="onCancel()">
                 {{ data.cancelText || 'Cancelar' }}
             </button>
             }
-    
+
             <button type="submit" class="btn btn-secondary w-full" [disabled]="formGroup.invalid">
                 {{ data.confirmText || 'Aceptar' }}
             </button>
         </div>
-        
-    </form>
 
+    </form>
 
 </div>
