@@ -54,7 +54,6 @@
     }
 }
 
-// 🔴 MODIFICADOR: Primario (Cyan)
 .btn-primary {
     --btn-bg: var(--rs-color-primary);
     --btn-text: #ffffff;
@@ -63,7 +62,6 @@
     --btn-shadow: 0 4px 8px rgba(27, 204, 199, 0.3);
 }
 
-// 🔵 MODIFICADOR: Secundario Real (Azul)
 .btn-secondary {
     --btn-bg: var(--rs-color-secondary);
     --btn-text: #ffffff;
@@ -71,7 +69,6 @@
     --btn-hover-bg: color-mix(in srgb, var(--rs-color-secondary), black 15%);
 }
 
-// 🔲 MODIFICADOR: Outline Primario (El que antes llamabas secondary)
 .btn-outline-primary {
     --btn-bg: transparent;
     --btn-border: var(--rs-color-primary);
@@ -81,7 +78,6 @@
     --btn-hover-border: var(--rs-color-primary);
 }
 
-// 🔲 MODIFICADOR: Outline Secundario
 .btn-outline-secondary {
     --btn-bg: transparent;
     --btn-border: var(--rs-color-secondary);

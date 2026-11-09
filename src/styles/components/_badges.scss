@@ -1,13 +1,19 @@
 :root {
     // BADGES
-    --rs-badge-active-bg: #EAF7EC;
-    --rs-badge-active-text: #00A651;
+    --rs-badge-activo-bg: #EAF7EC;
+    --rs-badge-activo-text: #00A651;
 
-    --rs-badge-inactive-bg: #fef2f2;
-    --rs-badge-inactive-text: #b91c1c;
+    --rs-badge-inactivo-bg: #fef2f2;
+    --rs-badge-inactivo-text: #b91c1c;
 
-    --rs-badge-default-bg: #f1f5f9;
-    --rs-badge-default-text: #475569;
+    --rs-badge-pendiente-bg: #F9F2C2;
+    --rs-badge-pendiente-text: #D7A400;
+
+    --rs-badge-default-bg: #F6F6F6;
+    --rs-badge-default-text: #979797;
+
+    --rs-badge-primary-bg: #E6EEFD;
+    --rs-badge-primary-text: #3372E6;
 }
 
 .status-badge {
@@ -25,18 +31,32 @@
     white-space: nowrap;
 }
 
+// ESTILO PRIMARY 
+.badge-primary .status-badge,
+.badge-primary.status-badge {
+    background-color: var(--rs-badge-primary-bg);
+    color: var(--rs-badge-primary-text);
+}
+
 // ESTADO ACTIVO
 .badge-activo .status-badge,
 .badge-activo.status-badge {
-    background-color: var(--rs-badge-active-bg);
-    color: var(--rs-badge-active-text);
+    background-color: var(--rs-badge-activo-bg);
+    color: var(--rs-badge-activo-text);
 }
 
 // ESTADO INACTIVO
 .badge-inactivo .status-badge,
 .badge-inactivo.status-badge {
-    background-color: var(--rs-badge-inactive-bg);
-    color: var(--rs-badge-inactive-text);
+    background-color: var(--rs-badge-inactivo-bg);
+    color: var(--rs-badge-inactivo-text);
+}
+
+// ESTADO PENDIENTE
+.badge-pendiente .status-badge,
+.badge-pendiente.status-badge {
+    background-color: var(--rs-badge-pendiente-bg);
+    color: var(--rs-badge-pendiente-text);
 }
 
 //DEFAULT

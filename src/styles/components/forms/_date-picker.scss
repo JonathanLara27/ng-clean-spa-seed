@@ -1,0 +1,130 @@
+/* ==========================================================================
+   📅 VARIABLES DE DATEPICKER (Angular Material)
+   ========================================================================== */
+:root {
+    // Contenedor
+    --rs-dp-bg: var(--rs-white, #ffffff);
+    --rs-dp-radius: 16px;
+    --rs-dp-shadow: 0 10px 25px rgba(1, 56, 123, 0.15);
+    --rs-dp-border: 1px solid var(--rs-border-light, #e2e8f0);
+    --rs-dp-padding: 8px;
+
+    // Cabecera (Mes/Año y Flechas)
+    --rs-dp-header-padding: 8px 16px 0;
+    --rs-dp-header-btn-size: 16px;
+    --rs-dp-header-hover-bg: rgba(1, 56, 123, 0.05);
+
+    // Tabla de Días (L, M, M...)
+    --rs-dp-table-header-size: 12px;
+    --rs-dp-table-header-pb: 8px;
+
+    // Celdas (Números)
+    --rs-dp-cell-size: 14px;
+    --rs-dp-cell-hover-bg: rgba(204, 29, 35, 0.1);
+
+    // Estados específicos
+    --rs-dp-today-border: 1.5px solid var(--rs-color-secondary);
+    --rs-dp-selected-shadow: 0 4px 10px rgba(204, 29, 35, 0.3);
+}
+
+// ==========================================
+// 📅 DATEPICKER CUSTOM (Angular Material)
+// ==========================================
+
+.mat-datepicker-content {
+    background-color: var(--rs-dp-bg) !important;
+    border-radius: var(--rs-dp-radius) !important;
+    box-shadow: var(--rs-dp-shadow) !important;
+    border: var(--rs-dp-border);
+    padding: var(--rs-dp-padding) !important;
+
+    .mat-calendar {
+        font-family: var(--rs-font-primary);
+    }
+
+    // Cabecera (Mes y Año, flechas)
+    .mat-calendar-header {
+        padding: var(--rs-dp-header-padding);
+
+        .mat-calendar-controls {
+            margin: 0;
+        }
+
+        .mat-calendar-button {
+            font-family: var(--rs-font-secondary, var(--rs-font-primary));
+            font-weight: 600;
+            font-size: var(--rs-dp-header-btn-size);
+            color: var(--rs-title-color);
+
+            &:hover {
+                background-color: var(--rs-dp-header-hover-bg);
+            }
+        }
+
+        // Flechas de navegación
+        .mat-calendar-arrow {
+            fill: var(--rs-title-color);
+        }
+
+        .mat-calendar-previous-button,
+        .mat-calendar-next-button {
+            color: var(--rs-title-color);
+
+            &:hover {
+                background-color: var(--rs-dp-header-hover-bg);
+            }
+        }
+    }
+
+    // Días de la semana (L, M, M, J, V, S, D)
+    .mat-calendar-table-header th {
+        color: var(--rs-text-secondary);
+        font-weight: 500;
+        font-size: var(--rs-dp-table-header-size);
+        padding-bottom: var(--rs-dp-table-header-pb);
+    }
+
+    // Celdas de los días (Números)
+    .mat-calendar-body-cell-content {
+        border-radius: 50% !important;
+        color: var(--rs-text-primary);
+        font-weight: 500;
+        font-size: var(--rs-dp-cell-size);
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: var(--rs-dp-cell-hover-bg) !important;
+            color: var(--rs-color-secondary);
+        }
+    }
+
+    // Día actual (Hoy)
+    .mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+        border: none;
+
+        .mat-calendar-body-cell-content {
+            border: var(--rs-dp-today-border) !important;
+            background-color: transparent;
+        }
+    }
+
+    // Día seleccionado
+    .mat-calendar-body-selected {
+        background-color: var(--rs-color-secondary) !important;
+        color: var(--rs-white) !important;
+        box-shadow: var(--rs-dp-selected-shadow) !important;
+
+        &:hover {
+            background-color: var(--rs-color-secondary) !important;
+            color: var(--rs-white) !important;
+            opacity: 0.9;
+        }
+    }
+
+    // Label del mes actual en la vista de días
+    .mat-calendar-body-label {
+        color: var(--rs-title-color);
+        font-weight: 600;
+        font-size: var(--rs-dp-cell-size);
+    }
+}

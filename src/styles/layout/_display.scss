@@ -19,6 +19,19 @@
 .align-between { align-content: space-between !important; }
 .align-end { align-items: flex-end !important; }
 
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.top-4 { top: 1rem !important; }
+.right-4 { right: 1rem !important; }
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 // ==========================================
 // 🚀 MAX WIDTHS DINÁMICOS
 // ==========================================
@@ -28,5 +41,28 @@ $width-iterator: 100;
   .max-w-#{$max-width} {
     max-width: $max-width + px !important;
     width: 100%; 
+  }
+}
+
+// ==========================================
+// 🚀 MIN WIDTHS DINÁMICOS
+// ==========================================
+$width-iterator-2: 50;
+@for $i from 1 through 20 {
+  $min-width: $width-iterator-2 * $i;
+  .min-w-#{$min-width} {
+    min-width: $min-width + px !important;
+    // width: 100%; 
+  }
+}
+
+// ==========================================
+// 🚀 MAX HEIGTHS DINÁMICOS
+// ==========================================
+$height-iterator : 100;
+@for $i from 1 through 5 {
+  $max-height: $height-iterator * $i;
+  .max-h-#{$max-height} {
+    max-height: $max-height + px !important;
   }
 }

@@ -1,3 +1,3 @@
-@use './display';
-@use './grid';
-@use './spacing'
+@forward './display';
+@forward './grid';
+@forward './spacing'

@@ -3,6 +3,22 @@
 // ==========================================
 
 .checkbox-wrapper {
+    // 🎨 1. TOKENS DEL COMPONENTE (Variables locales)
+    // Mapeamos las globales a las necesidades específicas de este componente
+    --chk-size: 20px;
+    --chk-border-radius: 4px;
+    --chk-text-color: var(--rs-text-secondary);
+    --chk-text-hover: var(--rs-title-color);
+
+    --chk-border-color: var(--rs-color-secondary);
+    --chk-bg-checked: var(--rs-color-secondary);
+    --chk-bg-hover: #fff5f5;
+
+    // Tokens de estado deshabilitado
+    --chk-disabled-bg: var(--rs-disabled-bg);
+    --chk-disabled-border: var(--rs-disabled-border);
+    --chk-disabled-text: var(--rs-disabled-text);
+
     display: flex;
     align-items: center;
     gap: 10px;
@@ -12,6 +28,18 @@
     font-weight: 500;
     height: 44px;
     margin-top: auto;
+    user-select: none;
+
+    // 🏗️ 2. LÓGICA ESTRUCTURAL (Inmutable)
+    // De aquí en adelante, NUNCA tocamos valores quemados ni variables globales
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: var(--chk-text-color);
+    font-size: 14px;
+    font-weight: 500;
+    height: 44px;
     user-select: none;
 
     input[type="checkbox"] {
@@ -24,11 +52,11 @@
 
     .checkmark {
         position: relative;
-        height: 20px;
-        width: 20px;
+        height: var(--chk-size);
+        width: var(--chk-size);
         background-color: var(--rs-white);
-        border: 1.5px solid var(--rs-error-color);
-        border-radius: 4px;
+        border: 1.5px solid var(--chk-border-color);
+        border-radius: var(--chk-border-radius);
         transition: all 0.2s ease-in-out;
         display: flex;
         align-items: center;
@@ -36,16 +64,18 @@
         flex-shrink: 0;
     }
 
-    &:hover {
-        color: var(--rs-title-color);
-        .checkmark {
-            background-color: #fff5f5;
+    // Comportamientos
+    &:not(:has(input:disabled)):hover {
+        color: var(--chk-text-hover);
+
+        input:not(:checked)~.checkmark {
+            background-color: var(--chk-bg-hover);
         }
     }
 
-    input:checked ~ .checkmark {
-        background-color: var(--rs-error-color);
-        border-color: var(--rs-error-color);
+    input:checked~.checkmark {
+        background-color: var(--chk-bg-checked);
+        border-color: var(--chk-bg-checked);
 
         &::after {
             content: "";
@@ -59,26 +89,31 @@
         }
     }
 
-    input:focus-visible ~ .checkmark {
+    input:focus-visible~.checkmark {
         box-shadow: 0 0 0 3px rgba(204, 29, 35, 0.3);
     }
 
-    input:disabled ~ .checkmark {
-        background-color: var(--rs-border-color, #e2e8f0);
-        border-color: var(--rs-border-color, #cbd5e1);
-        cursor: not-allowed;
+    // ==========================================
+    // ESTADOS DESHABILITADOS
+    // ==========================================
+
+    input:disabled~.checkmark {
+        background-color: var(--chk-disabled-bg);
+        border-color: var(--chk-disabled-border);
+    }
+
+    input:disabled:checked~.checkmark {
+        background-color: var(--chk-disabled-border);
+        border-color: var(--chk-disabled-border);
 
         &::after {
-            border-color: #94a3b8;
+            border-color: var(--rs-white);
         }
     }
 
+    // 🔥 Wrapper deshabilitado con cursor activo
     &:has(input:disabled) {
         cursor: not-allowed;
-        color: #94a3b8;
-
-        &:hover .checkmark {
-            background-color: var(--rs-border-color, #e2e8f0);
-        }
+        color: var(--rs-disabled-text);
     }
 }

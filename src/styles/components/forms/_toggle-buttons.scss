@@ -1,34 +1,59 @@
 // ==========================================
-// 🎚️ SEGMENTED TOGGLE BUTTONS
+// 🔘 RADIO GROUP SEGMENTED
 // ==========================================
 
 .radio-group-segmented {
+    // 🎨 1. TOKENS DEL COMPONENTE (Variables locales)
+    --seg-bg: var(--rs-page-bg, #f8fafc);
+    --seg-border-color: var(--rs-border-light);
+    --seg-radius: 8px;
+    --seg-padding: 4px;
+
+    --seg-btn-padding: 8px 16px;
+    --seg-btn-radius: 6px;
+    
+    // 🔽 Inactivo: Color de texto más tenue para que pase a segundo plano
+    --seg-btn-text-color: var(--rs-text-secondary, #64748b);
+    --seg-btn-font-weight: 500;
+    --seg-btn-font-size: 14px;
+
+    // 🚀 Activo: Azul principal y texto blanco para máximo contraste
+    --seg-btn-active-bg: var(--rs-blue-900);
+    --seg-btn-active-text: var(--rs-white);
+    --seg-btn-active-shadow: var(--rs-shadow-sm);
+
+    --seg-btn-hover-bg: rgba(1, 56, 123, 0.05);
+
+    // 🏗️ 2. LÓGICA ESTRUCTURAL (Inmutable)
     display: inline-flex;
-    background-color: var(--rs-page-bg, #f8fafc);
-    border-radius: 8px;
-    padding: 4px;
-    border: 1px solid var(--rs-border-light);
+    background-color: var(--seg-bg);
+    border: 1px solid var(--seg-border-color);
+    border-radius: var(--seg-radius);
+    padding: var(--seg-padding);
 
     button {
-        padding: 8px 16px;
-        border-radius: 6px;
+        padding: var(--seg-btn-padding);
+        border-radius: var(--seg-btn-radius);
         border: none;
         background-color: transparent;
 
-        color: var(--rs-title-color);
-        font-weight: 500;
-        font-size: 14px;
+        color: var(--seg-btn-text-color);
+        font-weight: var(--seg-btn-font-weight);
+        font-size: var(--seg-btn-font-size);
         cursor: pointer;
         transition: all 0.2s ease;
 
+        // 🚀 3. ESTADOS Y MODIFICADORES
         &.active {
-            background-color: var(--rs-btn-info-bg);
-            color: var(--rs-white);
-            box-shadow: var(--rs-shadow-sm);
+            background-color: var(--seg-btn-active-bg);
+            color: var(--seg-btn-active-text);
+            box-shadow: var(--seg-btn-active-shadow);
         }
 
         &:hover:not(.active) {
-            background-color: rgba(1, 56, 123, 0.05);
+            background-color: var(--seg-btn-hover-bg);
+            // Recuperamos un poco de color al pasar el mouse sobre el inactivo
+            color: var(--rs-blue-900);
         }
 
         &:focus {

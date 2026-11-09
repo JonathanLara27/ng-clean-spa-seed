@@ -1,0 +1,135 @@
+@use '@angular/material' as mat;
+
+// ==========================================
+// 🔻 MAT-SELECT (Caja Triger / Input)
+// ==========================================
+
+mat-select.form-control {
+    // 🎨 1. TOKENS DEL COMPONENTE (Mapeados desde _variables.scss)
+    --sel-text-color: var(--rs-text-primary);
+    --sel-text-disabled: var(--rs-disabled-text);
+    --sel-text-placeholder: var(--rs-text-secondary);
+    --sel-text-invalid: var(--rs-color-secondary);
+
+    --sel-arrow-color: var(--rs-color-secondary);
+    --sel-arrow-disabled: var(--rs-disabled-text);
+    --sel-arrow-focus: rgba(1, 56, 123, 0.8); // rs-blue-900 suavizado[cite: 13]
+    --sel-arrow-invalid: var(--rs-color-secondary);
+
+    --sel-font-size: 14px;
+    --sel-padding: 0 20px;
+
+    --sel-disabled-opacity: 0.6;
+
+    // Inyectamos los tokens locales en la configuración de Material
+    @include mat.select-overrides((enabled-trigger-text-color: var(--sel-text-color),
+            disabled-trigger-text-color: var(--sel-text-disabled),
+            placeholder-text-color: var(--sel-text-placeholder),
+
+            enabled-arrow-color: var(--sel-arrow-color),
+            disabled-arrow-color: var(--sel-arrow-disabled),
+            focused-arrow-color: var(--sel-arrow-focus),
+            invalid-arrow-color: var(--sel-arrow-invalid),
+
+            trigger-text-font: inherit,
+            trigger-text-size: var(--sel-font-size),
+            trigger-text-weight: 400,
+            trigger-text-line-height: normal,
+            trigger-text-tracking: normal,
+
+            arrow-transform: translateY(0)));
+
+    // 🏗️ 2. ESTRUCTURA (Inmutable)
+    display: flex;
+    align-items: center;
+    background-image: none !important;
+    padding: 0 !important;
+
+    // 🔒 ESTADO DESHABILITADO
+    &.mat-mdc-select-disabled {
+        cursor: not-allowed !important;
+        opacity: var(--sel-disabled-opacity) !important;
+
+        .mat-mdc-select-trigger {
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+        }
+    }
+
+    .mat-mdc-select-trigger {
+        padding: var(--sel-padding);
+        width: 100%;
+        box-sizing: border-box;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    // 🚀 3. MODIFICADORES DE ESTADO
+    &.ng-invalid.ng-touched {
+        // Mutación directa del token sin necesidad de llamar al mixin nuevamente
+        --sel-text-color: var(--sel-text-invalid);
+    }
+}
+
+// ==========================================
+// 🔻 MAT-SELECT (Panel Flotante)[cite: 12]
+// ==========================================
+
+.rs-custom-select-panel {
+    // 🎨 1. TOKENS DEL PANEL Y OPCIONES[cite: 13]
+    --sel-panel-bg: var(--rs-white);
+    --sel-panel-shadow: 0 8px 24px rgba(1, 56, 123, 0.12);
+    --sel-panel-radius: 12px;
+    --sel-panel-margin-top: 8px;
+
+    --sel-opt-text: var(--rs-text-primary);
+    --sel-opt-size: 14px;
+    --sel-opt-hover-bg: rgba(1, 56, 123, 0.05);
+    --sel-opt-selected-bg: rgba(1, 56, 123, 0.1);
+    --sel-opt-padding: 0 20px;
+
+    // Tokens del Pseudo Checkbox
+    --sel-chk-radius: 4px;
+    --sel-chk-border-normal: var(--rs-border-medium);
+    --sel-chk-bg-checked: var(--rs-color-secondary);
+    --sel-chk-border-checked: var(--rs-color-secondary);
+    --sel-chk-margin-right: 12px;
+
+    // Configuración base del panel[cite: 12]
+    @include mat.select-overrides((panel-background-color: var(--sel-panel-bg),
+            container-elevation-shadow: var(--sel-panel-shadow)));
+
+    border-radius: var(--sel-panel-radius) !important;
+    margin-top: var(--sel-panel-margin-top) !important;
+    border: 1px solid var(--rs-blue-100) !important;
+
+    // Configuración de las opciones internas[cite: 12]
+    @include mat.option-overrides((label-text-color: var(--sel-opt-text),
+            label-text-size: var(--sel-opt-size),
+            label-text-font: inherit,
+            hover-state-layer-color: var(--sel-opt-hover-bg),
+            selected-state-layer-color: var(--sel-opt-selected-bg)));
+
+    .mat-mdc-option {
+        padding: var(--sel-opt-padding) !important;
+    }
+
+    // =========================================
+    // 🔲 CHECKBOX MÚLTIPLE (Pseudo Checkbox)
+    // =========================================
+
+    .mat-pseudo-checkbox {
+        // 🔥 ELIMINADO: display: inline-flex !important;
+        // Solo definimos cómo se ve, Angular decide cuándo se ve.
+        border-radius: var(--sel-chk-radius) !important;
+        border-color: var(--sel-chk-border-normal) !important;
+        margin-right: var(--sel-chk-margin-right) !important;
+    }
+
+    .mat-pseudo-checkbox-checked,
+    .mat-pseudo-checkbox-indeterminate {
+        background-color: var(--sel-chk-bg-checked) !important;
+        border-color: var(--sel-chk-border-checked) !important;
+    }
+}

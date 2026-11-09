@@ -13,9 +13,12 @@
    🌐 SCROLLBAR GLOBAL PERSONALIZADO
    ========================================================== */
 * {
-  @include mix.custom-scrollbar(6px, transparent, var(--rs-color-primary));
+  // 1. Definimos una variable que por defecto sea el primary
+  --rs-scrollbar-thumb: var(--rs-color-primary);
 
-  // Soporte estándar para Firefox
+  // 2. Le pasamos esa variable al mixin y a la propiedad estándar
+  @include mix.custom-scrollbar(6px, transparent, var(--rs-scrollbar-thumb));
+
   scrollbar-width: thin;
-  scrollbar-color: var(--rs-color-primary) transparent;
+  scrollbar-color: var(--rs-scrollbar-thumb) transparent;
 }

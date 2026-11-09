@@ -1,0 +1,15 @@
+/* ==========================================================================
+   DECLARACIÓN DE FUENTES LOCALES
+   ========================================================================== */
+$font-path-metropolis: '/fonts/metropolis';
+$font-path-roboto: '/fonts/roboto';
+
+/* --- METROPOLIS (Títulos) --- */
+@font-face { font-family: 'Metropolis'; src: url('#{$font-path-metropolis}/Metropolis-Regular.woff2') format('woff2'); font-weight: normal; font-style: normal; font-display: swap;}
+@font-face { font-family: 'Metropolis'; src: url('#{$font-path-metropolis}/Metropolis-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap;}
+@font-face { font-family: 'Metropolis'; src: url('#{$font-path-metropolis}/Metropolis-Bold.woff2') format('woff2'); font-weight: bold; font-style: normal; font-display: swap;}
+
+/* --- ROBOTO (Cuerpo) --- */
+@font-face { font-family: 'Roboto'; src: url('#{$font-path-roboto}/Roboto-Regular.woff2') format('woff2'); font-weight: normal; font-style: normal; font-display: swap;}
+@font-face { font-family: 'Roboto'; src: url('#{$font-path-roboto}/Roboto-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap;}
+@font-face { font-family: 'Roboto'; src: url('#{$font-path-roboto}/Roboto-Bold.woff2') format('woff2'); font-weight: bold; font-style: normal; font-display: swap;}

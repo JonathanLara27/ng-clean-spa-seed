@@ -3,23 +3,41 @@
 // ==========================================
 
 .radio-wrapper {
+    // 🎨 1. TOKENS DEL COMPONENTE (Variables locales)
+    --radio-size: 24px;
+    --radio-dot-size: 12px;
+    --radio-border-width: 1.5px;
+    
+    // Colores base mapeados desde las variables globales
+    --radio-color-border: var(--rs-color-secondary);
+    --radio-color-dot: var(--rs-color-secondary);
+    --radio-text-color: var(--rs-text-secondary);
+    --radio-text-hover: var(--rs-text-primary);
+    
+    // 🛑 Tokens para estado deshabilitado (Ajusta los fallbacks a tus variables globales)
+    --radio-color-disabled: var(--rs-color-disabled, #d1d5db); 
+    --radio-text-disabled: var(--rs-text-disabled, #9ca3af);
+    --radio-bg-disabled: var(--rs-bg-disabled, #f3f4f6);
+
+    // 🏗️ 2. LÓGICA ESTRUCTURAL (Inmutable)
     display: flex;
     align-items: center;
     gap: 16px;
     cursor: pointer;
-    color: var(--rs-text-secondary);
+    color: var(--radio-text-color);
     font-size: 16px;
     font-weight: 400;
     transition: color 0.2s ease;
+    min-height: 44px;
 
     input[type="radio"] {
         display: none;
     }
 
     .radio-circle {
-        width: 24px;
-        height: 24px;
-        border: 1.5px solid var(--rs-error-color);
+        width: var(--radio-size);
+        height: var(--radio-size);
+        border: var(--radio-border-width) solid var(--radio-color-border);
         border-radius: 50%;
         position: relative;
         flex-shrink: 0;
@@ -31,9 +49,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 12px;
-            height: 12px;
-            background-color: var(--rs-error-color);
+            width: var(--radio-dot-size);
+            height: var(--radio-dot-size);
+            background-color: var(--radio-color-dot);
             border-radius: 50%;
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -43,8 +61,26 @@
         transform: translate(-50%, -50%) scale(1);
     }
 
-    &.active,
-    &:hover {
-        color: var(--rs-text-primary);
+    // 🚀 3. ESTADOS (Hover, Active, Disabled)
+    
+    // Prevenimos el hover si el input está deshabilitado
+    &:not(:has(input[type="radio"]:disabled)):hover,
+    &.active {
+        color: var(--radio-text-hover);
+    }
+
+    // 🔒 Lógica de bloqueo automático
+    &:has(input[type="radio"]:disabled) {
+        cursor: not-allowed;
+        color: var(--radio-text-disabled);
+
+        .radio-circle {
+            border-color: var(--radio-color-disabled);
+            background-color: var(--radio-bg-disabled);
+
+            &::after {
+                background-color: var(--radio-color-disabled);
+            }
+        }
     }
 }

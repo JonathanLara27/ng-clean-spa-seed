@@ -1,0 +1,74 @@
+@use '@angular/material' as mat;
+
+// ==========================================
+// 📑 MAT-TABS CUSTOM (Pestañas limpias)
+// ==========================================
+
+.rs-custom-tabs {
+    // 🎨 1. TOKENS DEL COMPONENTE
+    --tab-text-color: var(--rs-text-secondary);
+    --tab-text-active: var(--rs-blue-900); 
+    --tab-text-font-weight: 500;
+    --tab-text-size: 15px;
+
+    --tab-ink-bar-color: var(--rs-blue-900); 
+    --tab-ink-bar-height: 3px;
+
+    --tab-divider-color: var(--rs-border-light); 
+    
+    // 🚀 NUEVO: Token para el fondo en Hover
+    --tab-hover-bg: var(--rs-blue-100);
+
+    // 🚀 2. INYECCIÓN DE TOKENS (Nombres oficiales de la API MDC)
+    @include mat.tabs-overrides((
+        active-label-text-color: var(--tab-text-active),
+        active-focus-label-text-color: var(--tab-text-active),
+        active-hover-label-text-color: var(--tab-text-active),
+        
+        active-indicator-color: var(--tab-ink-bar-color),
+        active-hover-indicator-color: var(--tab-ink-bar-color),
+        active-focus-indicator-color: var(--tab-ink-bar-color),
+        
+        inactive-label-text-color: var(--tab-text-color),
+        inactive-focus-label-text-color: var(--tab-text-color),
+        inactive-hover-label-text-color: var(--tab-text-active),
+        
+        divider-color: var(--tab-divider-color)
+    ));
+
+    // 🏗 3. LÓGICA ESTRUCTURAL
+    
+    // Configuración del botón de la pestaña en sí
+    .mdc-tab {
+        border-radius: 8px 8px 0 0; // Redondeado superior para que el hover sea amigable
+        transition: background-color 0.2s ease;
+
+        // 🚀 Interceptamos el hover para aplicar nuestro fondo
+        &:hover {
+            background-color: var(--tab-hover-bg);
+        }
+    }
+    
+    // Configuración de las tipografías
+    .mdc-tab__text-label {
+        font-weight: var(--tab-text-font-weight) !important;
+        font-size: var(--tab-text-size) !important;
+        transition: color 0.2s ease;
+    }
+
+    // Configuración del grosor y bordes de la línea animada
+    .mdc-tab-indicator__content--underline {
+        border-top-width: var(--tab-ink-bar-height) !important;
+        border-radius: 4px 4px 0 0; 
+    }
+
+    // Eliminamos el efecto ripple 
+    .mat-ripple {
+        display: none !important;
+    }
+    
+    // Alineación limpia de los tabs
+    .mat-mdc-tab-labels {
+        gap: 16px; 
+    }
+}

@@ -3,13 +3,36 @@
 // ==========================================
 
 .form-control {
-    background-color: var(--rs-input-bg);
-    border: 1px solid var(--rs-input-border);
-    border-radius: 24px;
-    padding: 0 20px;
-    height: 44px;
-    font-size: 14px;
-    color: var(--rs-text-primary);
+    // 🎨 1. TOKENS DEL COMPONENTE (Variables locales)
+    --input-bg: var(--rs-input-bg);
+    --input-border-color: var(--rs-input-border);
+    --input-border-width: 1px;
+    --input-border-radius: 24px;
+    --input-padding: 0 20px;
+    --input-height: 44px;
+    --input-font-size: 14px;
+    --input-text-color: var(--rs-text-primary);
+
+    // Tokens para Focus
+    --input-focus-border: rgba(1, 56, 123, 0.3);
+    --input-focus-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+
+    // Tokens para Error (Invalid)
+    --input-invalid-bg: #fef2f2;
+    --input-invalid-border: var(--rs-color-secondary);
+    --input-invalid-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+
+    // Tokens para Disabled
+    --input-disabled-opacity: 0.6;
+
+    // 🏗️ 2. LÓGICA ESTRUCTURAL (Inmutable)
+    background-color: var(--input-bg);
+    border: var(--input-border-width) solid var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    padding: var(--input-padding);
+    height: var(--input-height);
+    font-size: var(--input-font-size);
+    color: var(--input-text-color);
     width: 100%;
     transition: all 0.2s ease;
     outline: none;
@@ -20,32 +43,76 @@
     }
 
     &:focus {
-        border-color: rgba(1, 56, 123, 0.3);
-        box-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+        --input-border-color: var(--input-focus-border);
+        box-shadow: var(--input-focus-shadow);
     }
 
+    // 🔴 Estados Inválidos
     &.ng-invalid.ng-touched,
     &.ng-invalid.ng-dirty {
-        border-color: var(--rs-error-color);
-        background-color: #fef2f2;
+        --input-border-color: var(--input-invalid-border);
+        --input-bg: var(--input-invalid-bg);
+
         &:focus {
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+            box-shadow: var(--input-invalid-shadow);
         }
     }
 
+    // 🔒 Estados Deshabilitados
     &:disabled {
-        background-color: var(--rs-disabled-bg) !important;
-        color: var(--rs-disabled-text) !important;
-        border-color: var(--rs-disabled-border) !important;
         cursor: not-allowed !important;
-        opacity: 1 !important;
+        opacity: var(--input-disabled-opacity) !important;
 
         &.ng-invalid {
-            border-color: var(--rs-disabled-border) !important;
-            background-color: var(--rs-disabled-bg) !important;
+            --input-border-color: var(--rs-input-border) !important;
+            --input-bg: var(--rs-input-bg) !important;
+        }
+    }
+
+    // =========================================
+    // 🚀 MODIFICADORES DE VARIANTE
+    // =========================================
+
+    // 🔵 Variante Light Blue
+    &.blue-light {
+        --input-bg: var(--rs-blue-50);
+        --input-text-color: var(--rs-gray-800);
+
+        &:disabled {
+            --input-bg: var(--rs-blue-50) !important;
+            --input-border-color: var(--rs-input-border) !important;
+        }
+    }
+
+    // 🔍 Variante Search
+    &[type="search"] {
+        --input-bg: var(--rs-blue-50);
+
+        // Custom Placeholder Search
+        &::placeholder {
+            color: var(--rs-text-secondary);
+            opacity: 0.8;
+        }
+
+        &:focus {
+            --input-bg: var(--rs-white);
+            --input-border-color: var(--rs-blue-500);
+            --input-focus-shadow: 0 0 0 3px rgba(0, 148, 226, 0.15);
+        }
+
+        // UX Tip: Ocultar botón nativo "X" 
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+            -webkit-appearance: none;
         }
     }
 }
+
+// ==========================================
+// 🧩 INPUTS COMPUESTOS E ICONOS
+// ==========================================
 
 .input-with-icon {
     position: relative;
@@ -53,14 +120,15 @@
     align-items: center;
     width: 100%;
 
+    // Modificador estructural cuando el input pertenece a este grupo
     .form-control.has-suffix {
-        padding-right: 44px;
+        --input-padding: 0 44px 0 20px; // Aumentamos padding a la derecha (44px)
     }
 
     .icon-suffix {
         position: absolute;
         right: 16px;
-        color: var(--rs-error-color);
+        color: var(--rs-color-secondary);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -79,83 +147,87 @@
             }
         }
     }
-}
 
-select.form-control {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23cc1d23' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 16px;
-    cursor: pointer;
+    mat-datepicker-toggle {
+        position: absolute;
+        right: 4px;
+        color: var(--rs-color-secondary);
+        z-index: 1;
 
-    &:disabled {
-        cursor: not-allowed !important;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
-    }
-}
-
-select[multiple].form-control {
-    height: auto;
-    min-height: 120px;
-    padding: 12px;
-    border-radius: 16px;
-    background-image: none;
-
-    option {
-        padding: 8px 12px;
-        margin-bottom: 4px;
-        border-radius: 8px;
-        font-size: 14px;
-
-        &:checked {
-            background-color: rgba(1, 56, 123, 0.1);
-            color: var(--rs-text-primary);
-            font-weight: 600;
+        .mat-mdc-icon-button {
+            color: inherit;
         }
     }
 }
 
+
+// ==========================================
+// 📝 TEXTAREAS
+// ==========================================
+
 .form-textarea {
+    // 🎨 Reutilizamos tokens de la base .form-control
+    --textarea-bg: var(--rs-input-bg);
+    --textarea-border-color: var(--rs-input-border);
+    --textarea-border-width: 1px;
+    --textarea-border-radius: 12px;
+    --textarea-padding: 16px;
+    --textarea-min-height: 120px;
+    --textarea-text-color: var(--rs-text-primary);
+
+    // Estados
+    --textarea-focus-border: rgba(1, 56, 123, 0.3);
+    --textarea-focus-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+
+    --textarea-invalid-bg: #fef2f2;
+    --textarea-invalid-border: var(--rs-color-secondary);
+    --textarea-invalid-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+
+    --textarea-disabled-opacity: 0.6;
+
+    // 🏗️ Lógica Estructural
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    background-color: var(--rs-input-bg);
-    border: 1px solid var(--rs-input-border);
-    border-radius: 12px;
-    padding: 16px;
+    background-color: var(--textarea-bg);
+    border: var(--textarea-border-width) solid var(--textarea-border-color);
+    border-radius: var(--textarea-border-radius);
+    padding: var(--textarea-padding);
     font-family: inherit;
     font-size: 14px;
-    color: var(--rs-text-primary);
+    color: var(--textarea-text-color);
     resize: vertical;
-    min-height: 120px;
+    min-height: var(--textarea-min-height);
     outline: none;
     transition: all 0.2s ease;
 
     &:focus {
-        border-color: rgba(1, 56, 123, 0.3);
-        box-shadow: 0 0 0 3px rgba(1, 56, 123, 0.1);
+        --textarea-border-color: var(--textarea-focus-border);
+        box-shadow: var(--textarea-focus-shadow);
     }
 
     &.ng-invalid.ng-touched,
     &.ng-invalid.ng-dirty {
-        border-color: var(--rs-error-color);
-        background-color: #fef2f2;
+        --textarea-border-color: var(--textarea-invalid-border);
+        --textarea-bg: var(--textarea-invalid-bg);
+
         &:focus {
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+            box-shadow: var(--textarea-invalid-shadow);
         }
     }
 
     &:disabled {
-        background-color: var(--rs-disabled-bg) !important;
-        color: var(--rs-disabled-text) !important;
-        border-color: var(--rs-disabled-border) !important;
         cursor: not-allowed !important;
-        opacity: 1 !important;
+        opacity: var(--textarea-disabled-opacity) !important;
+
+        &.blue-light {
+            --textarea-bg: var(--rs-blue-50) !important;
+            --textarea-border-color: var(--rs-input-border) !important;
+        }
 
         &.ng-invalid {
-            border-color: var(--rs-disabled-border) !important;
-            background-color: var(--rs-disabled-bg) !important;
+            --textarea-border-color: var(--rs-input-border) !important;
+            --textarea-bg: var(--rs-input-bg) !important;
         }
     }
 }

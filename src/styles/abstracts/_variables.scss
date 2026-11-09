@@ -1,54 +1,100 @@
 :root {
     // 🔤 Tipografía Global
-    --rs-font-primary: 'Metropolis', system-ui, -apple-system, sans-serif;
+    --rs-font-primary: 'Roboto', system-ui, -apple-system, sans-serif;
+    --rs-font-secondary: 'Metropolis', system-ui, -apple-system, sans-serif;
 
-    // 🎨 Primitivos (Paleta Base)
-    --rs-blue-900: #01387b;
-    --rs-blue-500: #2271bf;
-    --rs-blue-100: #c6e2ff;
-    --rs-cyan-500: #1bccc7;
-    --rs-gray-500: #8c8f9c;
-    --rs-red-500: #db0a0a;
+    // ==========================================
+    // 1. COLORES PRIMITIVOS (La "Base de Datos")
+    // ==========================================
 
-    --rs-white: #fff;
+    // 🔹 Azules (Principales y Secundarios)
+    --rs-blue-900: #01387B;
+    --rs-blue-500: #0094E2;
+    --rs-blue-300: #A2D0FF;
+    --rs-blue-200: #D5EDFF;
+    --rs-blue-100: #DCF3FF;
+    --rs-blue-50: #F3F9FF;
 
-    // 🏛️ Semánticos (Uso de los primitivos)
-    --rs-title-color: #01387b;
-    --rs-color-primary: var(--rs-cyan-500);
-    --rs-color-secondary: var(--rs-blue-500);
-    --rs-color-error: var(--rs-red-500);
-    --rs-text-primary: #334155;
-    --rs-text-secondary: #64748b;
-    --rs-page-bg: #f3f9ff;
+    // 🌺 Magentas
+    --rs-magenta-500: #CF095E;
+    --rs-magenta-50: #FFEBF4;
 
-    // 📏 Dimensiones base
+    // 🌫️ Grises (Neutrales)
+    --rs-gray-800: #6A7183;
+    --rs-gray-700: #80848E;
+    --rs-gray-500: #979797;
+    --rs-gray-300: #D9D9D9;
+    --rs-gray-100: #EBEBEC;
+    --rs-white: #FFFFFF;
+
+    // 🚥 Feedback / Estados
+    --rs-green-500: #00A651;
+    --rs-green-50: #EAF7EC;
+    --rs-yellow-500: #D7A400;
+    --rs-yellow-50: #F9F2C2;
+    --rs-red-500: #FF5D5D;
+    --rs-red-50: #FDE4E5;
+
+    // FIX SUGERIDO: Reemplazar con el HEX real del equipo de UI
+    --rs-orange-500: #F27D16;
+    --rs-orange-50: #FDF0E4;
+
+    // ==========================================
+    // 2. COLORES SEMÁNTICOS (El "Para qué")
+    // ==========================================
+
+    // 🎯 Marcas y Acciones
+    --rs-color-primary: var(--rs-blue-900);
+    --rs-color-secondary: var(--rs-magenta-500);
+    --rs-color-accent: var(--rs-blue-500);
+
+    // 📜 Texto
+    --rs-text-primary: var(--rs-blue-900);
+    --rs-text-secondary: var(--rs-gray-700);
+    --rs-text-neutral: var(--rs-gray-500);
+
+    // 🧱 Fondos y Superficies
+    --rs-page-bg: var(--rs-blue-50);
+    --rs-card-bg: var(--rs-white);
+
+    // 🚨 Estados del Sistema (Basado en el diseño)
+    --rs-status-active-text: var(--rs-green-500);
+    --rs-status-active-bg: var(--rs-green-50);
+
+    --rs-status-suspended-text: var(--rs-yellow-500);
+    --rs-status-suspended-bg: var(--rs-yellow-50);
+
+    --rs-status-critical-text: var(--rs-red-500);
+    --rs-status-critical-bg: var(--rs-red-50);
+
+    --rs-status-warning-text: var(--rs-orange-500);
+    --rs-status-warning-bg: var(--rs-orange-50);
+
+    --rs-status-inactive-text: var(--rs-gray-800);
+    --rs-status-inactive-bg: var(--rs-gray-100);
+
+    // 📝 Formularios y Bordes
+    --rs-border-light: var(--rs-gray-300);
+    --rs-border-medium: var(--rs-gray-500);
+    --rs-input-bg: var(--rs-white);
+    --rs-input-border: var(--rs-border-light);
+    --rs-input-focus: var(--rs-blue-500);
+
+    // Variables de estado inactivo/deshabilitado
+    --rs-disabled-bg: #f8fafc; // Gris muy claro para fondos
+    --rs-disabled-border: #cbd5e1; // Gris medio para bordes
+    --rs-disabled-text: #94a3b8; // Gris oscuro para textos y contraste
+    
+    // 📏 Dimensiones base (Mantenidas de tu archivo original)
     --rs-radius-sm: 12px;
     --rs-radius-md: 16px;
     --rs-radius-lg: 20px;
-
     --rs-btn-radius: 50px;
     --rs-btn-radius-sm: 6px;
-
     --rs-card-radius: 16px;
     --rs-input-radius: 24px;
 
-    // 🔲 Bordes genéricos (Útiles para separadores, tablas y scrollbars)
-    --rs-border-light: #f4f5f8;
-    --rs-border-medium: #dadada;
-
-    // 📝 Variables de Formularios
-    --rs-input-bg: #f1f5f9; // Gris un tono más oscuro (#f1f5f9) para resaltar sobre fondo blanco
-    --rs-input-border: var(--rs-border-light); // Borde sutil (#e2e8f0) para definir el campo
-    --rs-input-focus: #01387b;
-    --rs-error-color: #cc1d23; // El rojo de los asteriscos
-    --rs-primary-blue: #2271bf;
-
-    // 🔥 Estados deshabilitados (Disabled)
-    --rs-disabled-bg: #f8fafc; // Gris muy clarito para el fondo
-    --rs-disabled-text: #94a3b8; // Gris oscuro para el texto
-    --rs-disabled-border: #e2e8f0; // Gris medio para el borde
-
     // 🌫️ Sombras base
     --rs-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-    --rs-shadow-md: 0 4px 12px rgba(146, 142, 142, 0.216);
+    --rs-shadow-md: 0 4px 12px rgba(106, 113, 131, 0.15); // Sombra suavizada con el gris oscuro de la paleta
 }

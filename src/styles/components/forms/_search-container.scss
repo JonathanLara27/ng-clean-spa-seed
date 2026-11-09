@@ -1,25 +1,47 @@
-// 🔍 Buscador Reutilizable Global
+// ==========================================
+// 🔍 BUSCADOR REUTILIZABLE GLOBAL 
+        // --input-bg: var(--rs-blue-50);
+        // --input-text-color: var(--rs-gray-800);
+// ==========================================
+
 .search-container {
+    // 🎨 1. TOKENS DEL COMPONENTE (Variables Locales)
+    --search-bg: var(--rs-blue-50);
+    --search-text-color: var(--rs-gray-800);
+    --search-padding: 8px 16px;
+    --search-height: auto;
+    
+    --search-border-width: 1px;
+    --search-border-color: var(--rs-input-border);
+    --search-border-radius: var(--rs-input-radius);
+    
+    --search-focus-shadow: 0 0 0 2px rgba(1, 56, 123, 0.1);
+    
+    --search-icon-color: var(--rs-title-color);
+    --search-icon-gap: 8px;
+    
+    --search-font-size: 14px;
+
+    // 🏗️ 2. LÓGICA ESTRUCTURAL (Inmutable)
     display: flex;
     align-items: center;
-    border-radius: var(--rs-input-radius);
-    // width: 300px;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-
-    // ESTILOS POR DEFECTO (Los que usas en el resto de páginas)
-    background: #f1f5f9;
-    padding: 8px 16px;
-    border: 1px solid transparent;
+    background: var(--search-bg);
+    padding: var(--search-padding);
+    height: var(--search-height);
+    border: var(--search-border-width) solid var(--search-border-color);
+    border-radius: var(--search-border-radius);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 
     &:focus-within {
-        box-shadow: 0 0 0 2px rgba(1, 56, 123, 0.1);
+        box-shadow: var(--search-focus-shadow);
     }
 
     mat-icon {
-        color: var(--rs-title-color);
-        margin-right: 8px;
+        color: var(--search-icon-color);
+        margin-right: var(--search-icon-gap);
         display: flex;
         align-items: center;
+        flex-shrink: 0;
     }
 
     input {
@@ -27,21 +49,18 @@
         background: transparent;
         outline: none;
         width: 100%;
-        color: var(--rs-text-primary);
-        font-size: 14px;
+        height: 100%;
+        color: var(--search-text-color);
+        font-size: var(--search-font-size);
         margin: 0;
         padding: 0;
     }
 
-    // 🚀 MODIFICADOR PARA TABS (Sobreescribe solo lo necesario)
+    // 🚀 3. MODIFICADORES (Solo sobreescriben tokens)
     &.variant-tab {
-        background: var(--rs-white);
-        height: 40px;
-        padding: 0 16px;
-        border-color: var(--rs-border-medium);
-
-        input {
-            height: 100%; // Forzamos a que tome los 40px
-        }
+        --search-bg: var(--rs-white);
+        --search-height: 40px;
+        --search-padding: 0 16px;
+        --search-border-color: var(--rs-border-medium);
     }
 }

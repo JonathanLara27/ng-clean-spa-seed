@@ -11,6 +11,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Todos los títulos en Metropolis */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--rs-font-secondary);
+  margin-top: 0;
+}
+
 // Asegurar que los inputs/botones hereden la fuente
 input,
 button,
@@ -24,14 +35,14 @@ select {
    ========================================== */
 // Mapa de pesos (Con comillas para evitar conflictos con colores como 'black')
 $font-weights: (
-  "thin": 100,
-  "light": 300,
+  // "thin": 100,
+  // "light": 300,
   "normal": 400,
   "medium": 500,
-  "semibold": 600,
+  // "semibold": 600,
   "bold": 700,
-  "extrabold": 800,
-  "black": 900
+  // "extrabold": 800,
+  // "black": 900
 );
 
 // Bucle para generar las clases .font-{peso}
@@ -49,7 +60,7 @@ $font-weights: (
    🔠 TAMAÑOS DE FUENTE (Font Sizes)
    ========================================== */
 // Lista de tamaños exactos que usas en tu diseño
-$font-sizes: 11, 12, 13, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40;
+$font-sizes: 11, 12, 13, 14, 15, 16, 18, 20, 22, 24, 28, 32, 36, 40;
 
 // Bucle para generar las clases .fs-{tamaño}
 @each $size in $font-sizes {
@@ -65,15 +76,15 @@ $font-sizes: 11, 12, 13, 14, 16, 18, 20, 22, 24, 28, 32, 36, 40;
 // ==========================================
 
 .text-primary {
-  color: var(--rs-title-color, #01387B) !important;
+  color: var(--rs-text-primary) !important;
 }
 
 .text-body {
-  color: var(--rs-text-primary, #4f5461) !important;
+  color: var(--rs-text-secondary) !important;
 }
 
 .text-muted {
-  color: var(--rs-text-secondary, #80848E) !important;
+  color: var(--rs-text-neutral) !important;
 }
 
 .text-danger {
