@@ -1,84 +1,109 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, Injector, ResourceRef, Service } from '@angular/core';
+import { IndexedDbConfig, IndexedDbResourceOptions } from '../interfaces/indexed-db.interface';
+import { IndexedDbStore } from './indexed-db.store';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Service()
 export class IndexedDbService {
-    private readonly DB_NAME = 'CUSTOM_NAME';
-    private readonly DB_VERSION = 1;
-    private readonly STORE_NAME = 'DraftAttachments';
+    private readonly injector = inject(Injector);
+
+    /** Pool de promesas de conexión para evitar múltiples aperturas concurrentes (Performance / Clean Code) */
+    private readonly connectionPool = new Map<string, Promise<IDBDatabase>>();
+
+    /** Configuración por defecto para retrocompatibilidad con borradores de archivos */
+    public static readonly DEFAULT_CONFIG: IndexedDbConfig = {
+        dbName: 'CUSTOM_NAME',
+        version: 1,
+        storeName: 'DraftAttachments'
+    };
 
     /**
-     * 1. CONEXIÓN: Abre la base de datos y crea la tabla si no existe.
+     * Abre y reutiliza conexiones a la base de datos de manera segura y eficiente.
      */
-    private async getDb(): Promise<IDBDatabase> {
-        return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+    public getDbConnection(dbName: string, version: number = 1, storeName: string): Promise<IDBDatabase> {
+        const poolKey = `${dbName}_v${version}`;
+        const existingConnection = this.connectionPool.get(poolKey);
 
-            // Si es la primera vez o cambió la versión, creamos el "ObjectStore" (la tabla)
+        if (existingConnection) {
+            return existingConnection;
+        }
+
+        const connectionPromise = new Promise<IDBDatabase>((resolve, reject) => {
+            if (typeof indexedDB === 'undefined') {
+                reject(new Error('IndexedDB no está disponible en este entorno de ejecución (ej. SSR).'));
+                return;
+            }
+
+            const request = indexedDB.open(dbName, version);
+
             request.onupgradeneeded = (event: IDBVersionChangeEvent) => {
                 const db = (event.target as IDBOpenDBRequest).result;
-                if (!db.objectStoreNames.contains(this.STORE_NAME)) {
-                    // No usamos keyPath, funcionará como un diccionario Key-Value libre
-                    db.createObjectStore(this.STORE_NAME);
+                if (!db.objectStoreNames.contains(storeName)) {
+                    db.createObjectStore(storeName);
                 }
             };
 
-            request.onsuccess = (event: Event) => resolve((event.target as IDBOpenDBRequest).result);
-            request.onerror = (event: Event) => reject((event.target as IDBOpenDBRequest).error);
-        });
-    }
+            request.onsuccess = (event: Event) => {
+                const db = (event.target as IDBOpenDBRequest).result;
 
-    /**
-     * 2. GUARDAR (PUT): Almacena un array de objetos File (binarios puros)
-     */
-    public async saveFiles(key: string, files: File[]): Promise<void> {
-        const db = await this.getDb();
+                // Limpieza del pool si la conexión se cierra o cambia de versión
+                db.onclose = () => this.connectionPool.delete(poolKey);
+                db.onversionchange = () => {
+                    db.close();
+                    this.connectionPool.delete(poolKey);
+                };
 
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction(this.STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(this.STORE_NAME);
-
-            // Guardamos la data pasando la llave explícitamente (out-of-line key)
-            const request = store.put(files, key);
-
-            request.onsuccess = () => resolve();
-            request.onerror = () => reject(request.error);
-        });
-    }
-
-    /**
-     * 3. RECUPERAR (GET): Obtiene los archivos binarios
-     */
-    public async getFiles(key: string): Promise<File[] | null> {
-        const db = await this.getDb();
-
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction(this.STORE_NAME, 'readonly');
-            const store = transaction.objectStore(this.STORE_NAME);
-            const request = store.get(key);
-
-            request.onsuccess = () => {
-                // request.result será undefined si no existe la llave
-                resolve(request.result || null);
+                resolve(db);
             };
-            request.onerror = () => reject(request.error);
+
+            request.onerror = (event: Event) => {
+                this.connectionPool.delete(poolKey);
+                reject((event.target as IDBOpenDBRequest).error ?? new Error('Error al abrir conexión con IndexedDB'));
+            };
         });
+
+        this.connectionPool.set(poolKey, connectionPromise);
+        return connectionPromise;
     }
 
     /**
-     * 4. LIMPIAR (DELETE): Borra los archivos cuando ya se envió la cotización
+     * Fábrica de Stores tipados (Factory Pattern).
+     * Permite instanciar un repositorio para cualquier base de datos y tabla con parámetros dinámicos.
      */
-    public async clearFiles(key: string): Promise<void> {
-        const db = await this.getDb();
+    public createStore<T = unknown>(config: IndexedDbConfig): IndexedDbStore<T> {
+        return new IndexedDbStore<T>(
+            config,
+            (dbName, version, storeName) => this.getDbConnection(dbName, version, storeName),
+            this.injector
+        );
+    }
 
-        return new Promise((resolve, reject) => {
-            const transaction = db.transaction(this.STORE_NAME, 'readwrite');
-            const store = transaction.objectStore(this.STORE_NAME);
-            const request = store.delete(key);
+    /**
+     * Utilidad reactiva directa: Genera un `ResourceRef` para una DB y store dados.
+     */
+    public createResource<T = unknown>(
+        config: IndexedDbConfig,
+        keySignal: () => string | null | undefined,
+        options?: IndexedDbResourceOptions<T>
+    ): ResourceRef<T | null> {
+        const store = this.createStore<T>(config);
+        return store.asResource(keySignal, options);
+    }
 
-            request.onsuccess = () => resolve();
-            request.onerror = () => reject(request.error);
-        });
+    // =========================================================================
+    // MÉTODOS DE RETROCOMPATIBILIDAD (Evitan breaking changes en código existente)
+    // =========================================================================
+    public async saveFiles(key: string, files: File[], config: IndexedDbConfig = IndexedDbService.DEFAULT_CONFIG): Promise<void> {
+        const store = this.createStore<File[]>(config);
+        await store.set(key, files);
+    }
+
+    public async getFiles(key: string, config: IndexedDbConfig = IndexedDbService.DEFAULT_CONFIG): Promise<File[] | null> {
+        const store = this.createStore<File[]>(config);
+        return store.get(key);
+    }
+
+    public async clearFiles(key: string, config: IndexedDbConfig = IndexedDbService.DEFAULT_CONFIG): Promise<void> {
+        const store = this.createStore<File[]>(config);
+        await store.delete(key);
     }
 }
