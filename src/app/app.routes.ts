@@ -5,7 +5,8 @@ export const APP_ROUTES: Routes = [
     // Rutas públicas (Sin Sidebar)
     {
         path: 'login',
-        loadComponent: () => import('./features/auth/presentation/pages/login/login')
+        loadComponent: () => import('./features/auth/presentation/pages/login/login'),
+        // canActivate: [guestGuard]
     },
 
     // Rutas privadas (Envueltas en el MainLayout)
