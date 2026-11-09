@@ -1,0 +1,63 @@
+<!-- 🚀 Contenedor principal relativo para posicionar el botón de cierre -->
+<div class="p-6 position-relative">
+    
+    <!-- 🚀 Botón de cierre flotante arriba a la derecha -->
+    <button matIconButton class="position-absolute top-4 right-4" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <div class="mb-6 pr-8 text-center"> <!-- Padding right para no chocar con la X -->
+        <h2 class="text-primary fs-24 font-bold mb-1">{{ viewService.title() }}</h2>
+        <p class="text-muted fs-14">Registro: <span class="font-semibold text-body">{{ data.entityName }}</span></p>
+    </div>
+
+    <!-- 🚀 FIX: Usamos (selectedTabChange) y le pasamos el índice -->
+    <mat-tab-group 
+        class="rs-custom-tabs mb-4" 
+        animationDuration="200ms"
+        (selectedTabChange)="viewService.changeView($event.index === 0 ? 'states' : 'changes')"
+    >
+        <mat-tab label="Estados">
+            <!-- Quitamos el template y renderizamos directo para evitar problemas de detección de cambios -->
+            <div class="pt-4 p-4">
+                <ng-container *ngTemplateOutlet="tableTemplate"></ng-container>
+            </div>
+        </mat-tab>
+        <mat-tab label="Cambios">
+            <div class="pt-4 p-4">
+                <ng-container *ngTemplateOutlet="tableTemplate"></ng-container>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+<!-- Extraemos el template limpio -->
+<ng-template #tableTemplate>
+    <section class="card">
+        <div class="mb-4">
+            <div class="search-container w-350">
+                <mat-icon>search</mat-icon>
+                <input #searchInput type="text" placeholder="Búsqueda local" 
+                    [value]="viewService.activeSearchControl().value"
+                    (input)="viewService.activeSearchControl().setValue(searchInput.value)">
+            </div>
+        </div>
+
+        <app-reusable-table 
+            [data]="viewService.activeStore().paginatedData()" 
+            [columns]="viewService.tableColumns()"
+            [isLoading]="viewService.isTableLoading()" 
+            [maxHeight]="'300px'">
+        </app-reusable-table>
+
+        <app-custom-paginator 
+            [totalItems]="viewService.activeStore().totalItems()" 
+            [currentPage]="viewService.activeStore().currentPage()"
+            [pageSize]="viewService.activeStore().pageSize()" 
+            [showPageSizeOptions]="true" 
+            [showFirstLastButtons]="true"
+            (pageChange)="viewService.pagination.setPage(viewService.activePaginationKey(), $event)"
+            (pageSizeChange)="viewService.pagination.setPageSize(viewService.activePaginationKey(), $event)">
+        </app-custom-paginator>
+    </section>
+</ng-template>
