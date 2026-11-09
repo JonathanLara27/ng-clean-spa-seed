@@ -1,4 +1,4 @@
-export type ColumnType = 'text' | 'badge' | 'array' | 'stacked';
+export type ColumnType = 'text' | 'badge' | 'array' | 'stacked' | 'tags';
 
 export interface TableColumn<T> {
     key: keyof T;
