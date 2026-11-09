@@ -1,65 +1,81 @@
-import { signal } from '@angular/core';
-import { Subject, EMPTY, Observable } from 'rxjs';
-import { exhaustMap, retry, tap, catchError } from 'rxjs/operators';
+import { computed, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { Observable, of } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { NotificationService } from '../services/notification.service';
 
 export abstract class BaseLookupState<T> {
+    protected readonly notify = inject(NotificationService, { optional: true });
 
-    // 1. Estado centralizado y genérico
-    private readonly _data = signal<T[]>([]);
-    public readonly data = this._data.asReadonly();
-    
-    private readonly _isLoading = signal<boolean>(false);
-    public readonly isLoading = this._isLoading.asReadonly();
-
-
-    private readonly loadTrigger$ = new Subject<void>();
-
-    constructor() {
-        this.initReactiveFlow();
-    }
+    // Bandera para permitir carga lazy (bajo demanda)
+    private readonly _requested = signal<boolean>(false);
 
     /**
-     * Contrato obligatorio: El hijo DEBE decirle al padre cómo obtener los datos.
+     * Contrato obligatorio (DIP):
+     * El hijo indica cómo obtener los datos mediante su servicio de API.
      */
     protected abstract fetchRequest(): Observable<T[]>;
 
     /**
-     * Contrato obligatorio: El hijo DEBE manejar su propio mensaje de error.
+     * Nombre descriptivo para logs o notificaciones.
      */
-    protected abstract handleError(error: any): void;
-
-    /**
-     * Motor reactivo cerrado a modificaciones (Clean Code).
-     */
-    private initReactiveFlow(): void {
-        this.loadTrigger$.pipe(
-            exhaustMap(() => {
-                this._isLoading.set(true);
-
-                return this.fetchRequest().pipe(
-                    retry(2),
-                    tap({
-                        next: (res) => this._data.set(res),
-                        finalize: () => this._isLoading.set(false)
-                    }),
-                    catchError((error) => {
-                        this.handleError(error);
-                        return EMPTY; // Mantenemos vivo el Subject
-                    })
-                );
-            })
-        ).subscribe();
+    protected getEntityName(): string {
+        return 'catálogo';
     }
 
     /**
-     * Método público expuesto a los componentes visuales.
+     * Manejador de error personalizable por el hijo.
+     */
+    protected handleError(error: unknown): void {
+        this.notify?.error(`No se pudo cargar ${this.getEntityName()}`);
+    }
+
+    // Motor reactivo estándar de Angular
+    protected readonly resource = rxResource({
+        // Si no se ha solicitado la carga, devolvemos undefined para dejar el recurso en estado 'idle'
+        params: () => (this._requested() ? true : undefined),
+        defaultValue: [] as T[],
+        stream: () => {
+            return this.fetchRequest().pipe(
+                retry(2),
+                catchError((error) => {
+                    this.handleError(error);
+                    // Emitimos array vacío para evitar que Angular lance el error NG0991
+                    return of([] as T[]);
+                })
+            );
+        }
+    });
+
+    // ==========================================
+    // API PÚBLICA (Signals y Métodos de Caché)
+    // ==========================================
+    public readonly data = this.resource.value;
+    public readonly isLoading = this.resource.isLoading;
+    public readonly hasData = computed(() => this.data().length > 0);
+
+    /**
+     * Carga los datos sólo si no existen en memoria y no se están cargando.
+     * Ideal para asociar al evento de apertura de un dropdown / select.
      */
     public loadLookupCache(): void {
-        if (this._data().length > 0 || this._isLoading() ) return;
-        this.loadTrigger$.next();
+        if (this.hasData() || this.isLoading()) return;
+        this._requested.set(true);
     }
 
+    /**
+     * Invalida la caché y fuerza una nueva petición HTTP.
+     */
+    public reload(): void {
+        this._requested.set(true);
+        this.resource.reload();
+    }
+
+    /**
+     * Resetea el catálogo a vacío y regresa al estado idle.
+     */
     public clearCache(): void {
-        this._data.set([]);
+        this._requested.set(false);
+        this.resource.set([]);
     }
 }
