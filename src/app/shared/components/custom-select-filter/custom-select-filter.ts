@@ -1,4 +1,4 @@
-import { Component, input, output, computed } from '@angular/core';
+import { Component, input, output, computed, ViewEncapsulation } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 
@@ -41,22 +41,24 @@ export type SelectFilterValue = string | number | boolean | null | string[] | nu
         </mat-select>
     `,
     styles: [`
+        @use 'styles/vendors/select-material';
         :host { display: block; width: 100%; }
         .form-control { display: flex; align-items: center; background-image: none !important; }
         .mat-mdc-select-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; height: 100%; }
         .mat-mdc-select-value { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    `]
+    `],
+    encapsulation: ViewEncapsulation.None
 })
 export class CustomSelectFilter {
     // ==========================================
     // 📊 DATA Y ESTADO (Inmutable)
     // ==========================================
     public options = input.required<CustomSelectFilterOption[]>();
-    
+
     // 🔥 Soporta tanto valores primitivos como arrays de primitivos
     public value = input<SelectFilterValue>(null);
     public multiple = input<boolean>(false);
-    
+
     public isLoading = input<boolean>(false);
     public disabled = input<boolean>(false);
 
@@ -75,7 +77,7 @@ export class CustomSelectFilter {
     // ==========================================
     // 🎛️ EVENTOS (Delegación)
     // ==========================================
-    
+
     // El output emite el mismo tipo estricto
     public selectionChange = output<SelectFilterValue>();
 

@@ -1,9 +1,8 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ViewEncapsulation } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { FormField } from '@angular/forms/signals';
-import { InputStatusDirective } from '../../../core/directives/input-status.directive';
-
+import { InputStatusDirective } from '../../directives/input-status.directive';
 export interface CustomSelectOption {
   key: string | number | boolean;
   label: string;
@@ -18,10 +17,6 @@ export interface CustomSelectOption {
     InputStatusDirective
   ],
   template: `
-    <!-- 
-      🔥 Aplicamos tu clase .form-control directamente.
-      El panelClass nos permite estilizar la caja flotante en el SCSS global 
-    -->
     <mat-select
         class="form-control"
         [ngClass]="inputClass()"
@@ -42,6 +37,7 @@ export interface CustomSelectOption {
     </mat-select>
   `,
   styles: [`
+    @use 'styles/vendors/select-material';
     /* 🛠️ Ajustes locales para que mat-select calce perfecto en tu .form-control */
     :host {
       display: block;
@@ -70,7 +66,8 @@ export interface CustomSelectOption {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-  `]
+  `],
+  encapsulation: ViewEncapsulation.None
 })
 export class CustomSelect {
   // Integración con Form Signals

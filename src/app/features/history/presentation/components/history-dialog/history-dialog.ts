@@ -31,6 +31,11 @@ export interface HistoryDialogData {
     HistoryDialogService
   ],
   templateUrl: './history-dialog.html',
+  styles: [
+    `
+      @use 'styles/vendors/tabs-material';
+    `
+  ],
 })
 export class HistoryDialog {
 

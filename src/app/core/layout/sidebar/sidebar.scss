@@ -1,20 +1,39 @@
-// 📦 TOKENS LOCALES DEL SIDEBAR (Se alimentan de los globales)
+// 📦 TOKENS LOCALES DEL SIDEBAR (Alineados al diseño real de Figma)
 :host {
+  // 📏 Dimensiones
   --sb-width-expanded: 280px;
   --sb-width-collapsed: 80px;
+  --sb-item-height: 56px; // Aumenté un poco la altura para dar respiro como en el diseño
+  --sb-icon-size: 24px;
+
+  // 🌟 Bordes y Sombras
+  --sb-border-radius: 0 32px 32px 0; // El borde del diseño es más redondeado
+  --sb-btn-radius: var(--rs-radius-md, 12px);
+  --sb-shadow-main: 4px 0 24px rgba(0, 0, 0, 0.04);
+  --sb-border-color: var(--rs-blue-100, #DCF3FF); // Líneas separadoras celestes muy claritas
+
+  // 🎨 Colores de Fondo
   --sb-bg: var(--rs-white, #ffffff);
-  --sb-text: var(--rs-title-color, #01387b);
+  --sb-bg-submenu: var(--rs-white, #ffffff); // El diseño muestra fondo blanco, no gris
+
+  // 🖋️ Colores de Texto e Iconos (Estado Normal)
+  --sb-text: var(--rs-blue-900, #01387B); // Azul oscuro
   --sb-text-muted: var(--rs-text-secondary, #64748b);
-  --sb-active-bg: var(--rs-page-bg, #f3f9ff);
-  --sb-active-indicator: var(--rs-color-primary, #cc1d23);
+  --sb-icon-color: var(--rs-blue-900, #01387B); // Los iconos por defecto son azul oscuro
+
+  // 🚥 Estados Activos (Corrección de UX/UI)
+  --sb-text-active: var(--rs-blue-500, #0094E2); // Texto/Icono Menú Padre Activo
+  --sb-subtext-active: var(--rs-blue-900, #01387B); // Texto/Icono Submenú Activo
+  --sb-bg-sublink-active: var(--rs-magenta-50, #FFEBF4); // Fondo Submenú Activo
+  --sb-indicator: var(--rs-magenta-500, #CF095E); // Barra lateral Magenta
+
+  // 🔥 Botón Toggle (Magenta con iconos blancos)
+  --sb-toggle-bg: var(--rs-magenta-500, #CF095E);
+  --sb-toggle-text: var(--rs-white, #ffffff);
+
+  // ⏱️ Animaciones
   --sb-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --sb-item-height: 48px;
-
-  // 🌟 NUEVO: Token de sombra lateral suave pero definida
-  --sb-shadow: 4px 0 24px rgba(0, 0, 0, 0.06);
-
-  // 🌟 FIX: 0 (Sup-Izq) | 24px (Sup-Der) | 24px (Inf-Der) | 0 (Inf-Izq)
-  --sb-border-radius: 0 24px 24px 0;
+  --sb-transition-submenu: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .sidebar {
@@ -25,13 +44,10 @@
   height: 100vh;
   background-color: var(--sb-bg);
   border-radius: var(--sb-border-radius);
-
-  // 🔥 Reemplazamos el borde por la sombra
   border-right: none;
-  box-shadow: var(--sb-shadow);
-
+  box-shadow: var(--sb-shadow-main);
   transition: width var(--sb-transition);
-  z-index: 100; // Crucial para que la sombra se proyecte sobre el main content
+  z-index: 100;
 
   &__toggle-btn {
     position: absolute;
@@ -40,14 +56,14 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background-color: var(--rs-color-primary, #cc1d23);
-    color: white;
+    background-color: var(--sb-toggle-bg);
+    color: var(--sb-toggle-text);
     border: none;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: var(--rs-shadow-sm);
+    box-shadow: 0 2px 8px rgba(207, 9, 94, 0.4); // Sombra del mismo tono magenta
     z-index: 10;
     transition: transform 0.2s ease;
 
@@ -57,25 +73,25 @@
   }
 
   &__header {
-    height: 80px;
     display: flex;
     align-items: center;
-    padding: 0 24px;
-    overflow: hidden;
+    justify-content: center;
+    padding: 24px 16px;
+    min-height: 80px;
   }
 
   &__logo-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-width: 200px; // Evita que el texto colapse feo
-  }
+    justify-content: center;
+    width: 100%;
 
-  &__logo-text {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--sb-text);
-    transition: opacity var(--sb-transition);
+    img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      object-fit: contain;
+    }
   }
 
   &__nav {
@@ -84,22 +100,32 @@
     overflow-x: hidden;
     padding: 16px 0;
 
-    // Ocultar scrollbar por estética
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
+    // &::-webkit-scrollbar {
+    //   width: 4px;
+    // }
 
-    &::-webkit-scrollbar-thumb {
-      background: var(--rs-border-medium);
-      border-radius: 4px;
-    }
+    // &::-webkit-scrollbar-thumb {
+    //   background: var(--sb-scrollbar-thumb);
+    //   border-radius: 4px;
+    // }
   }
 
-  &__menu,
-  &__submenu {
+  &__menu {
     list-style: none;
     margin: 0;
     padding: 0;
+
+  }
+
+  &__submenu {
+    background-color: var(--sb-bg-submenu);
+    height: 0;
+    overflow: hidden;
+    transition: height var(--sb-transition);
+
+    &--open {
+      height: calc(var(--child-count, 0) * var(--sb-item-height));
+    }
   }
 
   &__link,
@@ -109,6 +135,7 @@
     height: var(--sb-item-height);
     padding: 0 24px;
     color: var(--sb-text);
+    border-bottom: 1px dashed var(--sb-border-color); // Las líneas punteadas celestes
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
@@ -121,7 +148,7 @@
     white-space: nowrap;
 
     &:hover {
-      background-color: var(--sb-active-bg);
+      background-color: var(--rs-blue-50, #F3F9FF);
     }
   }
 
@@ -129,13 +156,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px; // 🔥 Ancho fijo
-    height: 24px; // 🔥 Alto fijo
-    min-width: 24px;
+    width: var(--sb-icon-size);
+    height: var(--sb-icon-size);
+    min-width: var(--sb-icon-size);
     margin-right: 16px;
-    color: var(--sb-text-muted);
+    color: var(--sb-icon-color);
     transition: all 0.2s ease;
-    flex-shrink: 0; // 🔥 PROHÍBE que Flexbox aplaste el icono
+    flex-shrink: 0;
   }
 
   &__label {
@@ -146,15 +173,16 @@
 
   &__arrow {
     transition: transform 0.3s ease;
-    color: var(--sb-text-muted);
+    color: var(--sb-icon-color);
 
     &--open {
       transform: rotate(180deg);
+      color: var(--rs-magenta-500, #CF095E);
     }
   }
 
   &__submenu {
-    background-color: #fafafa;
+    background-color: var(--sb-bg-submenu);
     overflow: hidden;
     transition: height var(--sb-transition);
   }
@@ -173,61 +201,91 @@
     white-space: nowrap;
     transition: all 0.2s;
 
-    &:hover {
-      color: var(--sb-text);
-      font-weight: 600;
+    .sidebar__icon {
+      color: var(--sb-text-muted); // Icono normal hereda color
     }
 
-    // 🔥 El estilo idéntico a tu referencia para el submenú
-    &--active {
-      color: var(--rs-color-primary, #cc1d23);
+    &:hover {
+      color: var(--sb-text); // Azul oscuro al hacer hover
       font-weight: 600;
-      // Usamos rgba para darle ese fondo rojizo casi transparente
-      background-color: rgba(204, 29, 35, 0.08);
+
+      .sidebar__icon {
+        color: var(--sb-text);
+      }
+    }
+
+    &--active {
+      color: var(--sb-subtext-active); // #01387B
+      font-weight: 600;
+      background-color: var(--sb-bg-sublink-active); // #FFEBF4
+
+      .sidebar__icon {
+        color: var(--sb-subtext-active); // #01387B
+      }
     }
   }
 
-  // Estado Activo Nivel 1
-  &__link--active,
+  // =========================================
+  // ESTADOS DEL MENÚ PADRE
+  // =========================================
+  // 1. Estado "Solo Abierto" (No es la ruta activa)
+  // Debe ir PRIMERO para que tenga menor prioridad
   &__link--open {
     color: var(--sb-text);
-    background-color: var(--sb-active-bg);
+
+    .sidebar__icon {
+      color: var(--sb-text);
+    }
+
+    .sidebar__arrow {
+      color: var(--sb-indicator);
+    }
+  }
+
+  // 2. Estado "Activo" (Es el padre de la ruta actual)
+  // Debe ir DESPUÉS para que sobreescriba a --open si ambas existen
+  &__link--active {
+    // Usamos !important en el color para ganar la batalla contra --open
+    color: var(--sb-text-active) !important;
+    background-color: var(--sb-bg-active);
 
     .sidebar__icon,
     .sidebar__arrow {
-      color: var(--rs-color-primary, #cc1d23);
+      color: var(--sb-text-active) !important;
     }
 
-    // La barrita lateral izquierda
+    // La barrita lateral izquierda Magenta
     &::before {
       content: '';
       position: absolute;
       left: 0;
-      top: 0;
-      bottom: 0;
+      top: 10%;
+      bottom: 10%;
       width: 4px;
-      background-color: var(--rs-color-primary, #cc1d23);
+      background-color: var(--sb-indicator);
       border-radius: 0 4px 4px 0;
     }
-
-    // Fondo solo si es un enlace directo sin hijos
-    &__link--active {
-      background-color: var(--sb-active-bg);
-    }
   }
+
+  // =========================================
+  // BOTÓN CERRAR SESIÓN
+  // =========================================
 
   &__footer {
     padding: 16px;
-    border-top: 1px solid var(--rs-border-light, #e2e8f0);
+    border-top: 1px solid var(--sb-border-color);
   }
 
   &__logout-btn {
-    border-radius: var(--rs-radius-md, 12px);
-    background-color: var(--sb-active-bg);
-    color: var(--rs-color-primary, #cc1d23);
+    border-radius: 50px; // Botón súper redondeado (píldora)
+    background-color: var(--rs-blue-50, #F3F9FF); // Fondo celeste clarito
+    color: var(--sb-text); // Texto azul oscuro
+    justify-content: center; // Texto centrado
+    border: 1px solid var(--sb-bg);
 
     .sidebar__icon {
-      color: inherit;
+      color: var(--rs-magenta-500, #CF095E); // Icono de logout magenta
+      margin-right: 8px; // Más pegado al texto
     }
 
     &:hover {
@@ -235,9 +293,9 @@
     }
   }
 
-  /* =========================================
-     ESTADO COLAPSADO
-     ========================================= */
+  // =========================================
+  // ESTADO COLAPSADO
+  // =========================================
   &--collapsed {
     width: var(--sb-width-collapsed);
 
@@ -245,10 +303,10 @@
     .sidebar__label,
     .sidebar__arrow {
       opacity: 0;
-      width: 0; // 🔥 Quita el espacio físico del texto
-      overflow: hidden; // 🔥 Oculta lo que desborde
-      visibility: hidden; // 🔥 Evita clics fantasma
-      flex-grow: 0; // Evita que intente expandirse
+      width: 0;
+      overflow: hidden;
+      visibility: hidden;
+      flex-grow: 0;
     }
 
     .sidebar__link {
@@ -259,16 +317,16 @@
     .sidebar__logout-btn {
       padding: 0;
       justify-content: center;
-      width: 48px; // Hace que el botón sea un cuadrado perfecto
-      margin: 0 auto; // Lo centra en el espacio disponible
+      width: 48px;
+      margin: 0 auto;
     }
 
     .sidebar__icon {
-      margin-right: 0; // Al quitar el margen, el icono se centra perfecto
+      margin-right: 0;
     }
 
     .sidebar__submenu {
-      height: 0 !important; // Fuerza el cierre al colapsar
+      grid-template-rows: 0fr !important;
     }
   }
 }

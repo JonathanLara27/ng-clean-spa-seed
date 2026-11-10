@@ -3,23 +3,21 @@
 // 🎨 DEFINICIÓN DE VARIABLES (API de Estilos del Componente)
 :host {
   // Colores Base
-  --rs-table-bg: #ffffff;
-  --rs-table-text-main: #333333;
-  --rs-table-text-muted: #888888;
-  --rs-table-text-light: #666666;
+  --rs-table-bg: var(--rs-white);
+  --rs-table-text-main: var(--rs-blue-900);
+  --rs-table-text-muted: var(--rs-text-neutral);
+  --rs-table-text-light: var(--rs-blue-200);
 
   // Headers
-  --rs-table-header-bg: #e5f0fa;
-  --rs-table-header-text: #01387b;
+  --rs-table-header-bg: var(--rs-blue-200);
+  --rs-table-header-text: var(--rs-blue-900);
 
   // Bordes
-  --rs-table-border-color: #d0dbe5;
+  --rs-table-border-color: var(--rs-blue-200);
 
   // Acciones (Rojos corporativos)
-  --rs-table-action-main: #cc1d23;
-  --rs-table-action-bg-light: #ffebee;
-
-  --rs-table-header-bg: #e5f0fa;
+  --rs-table-action-main: var(--rs-magenta-500);
+  --rs-table-action-bg-light: var(--rs-magenta-50);
 
   // 🆕 Nueva variable para controlar si es línea sólida o punteada
   --rs-table-border-style: dashed;
@@ -32,9 +30,7 @@
   overflow-x: auto;
   border-radius: 8px;
   background: var(--rs-table-bg);
-
-  overflow-y: auto;
-  @include custom-scrollbar(6px, transparent, var(--rs-title-color));
+  --rs-scrollbar-thumb: var(--rs-blue-500);
 
   // Evitamos scroll y clics indeseados mientras carga
   &.table-loading {
@@ -98,6 +94,25 @@
       }
     }
 
+    .cell-tags {
+      display: flex;
+      flex-direction: row; 
+      flex-wrap: wrap;     
+      align-items: center;
+      gap: 6px;
+
+      .tag-item {
+        /* 🎨 Estilo Tag/Etiqueta neutra */
+        background-color: #F1F5F9; /* Gris muy sutil o variable de tu tema */
+        color: var(--rs-table-text-main); /* Texto oscuro para contraste */
+        font-size: 16x;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 6px;
+        white-space: nowrap; /* Evita que el texto de un tag se parta a la mitad */
+      }
+    }
+
     // 🏷️ Lógica de Badges, ahora en badges.scss
     // .status-badge {
     //   display: inline-flex; // Usamos flex para centrar el texto dentro
@@ -119,11 +134,11 @@
 
     // 🛠️ Celda Principal
     .actions-header {
-      text-align: center;
+      text-align: left;
     }
 
     .actions-cell {
-      text-align: center;
+      text-align: left;
       vertical-align: middle;
 
       // 🔥 ESTADO INYECTADO: Flecha arriba, pero todos los botones debajo en una Sola Fila
@@ -141,8 +156,8 @@
     .actions-wrapper {
       display: flex;
       flex-direction: column; // 🔥 LA FLECHA SIEMPRE ESTARÁ ARRIBA
-      align-items: center;
-      justify-content: center;
+      align-items: flex-start;
+      justify-content: flex-start;
       gap: 8px;
 
       // 🔽 Botón "Mostrar más" (La flecha)
@@ -177,9 +192,9 @@
         // 🔥 LA MAGIA: Toma la variable, si no existe, usa 2 por defecto
         grid-template-columns: repeat(var(--action-grid-cols, 2), max-content);
         gap: 8px 12px;
-        justify-content: center;
+        justify-content: start;
         align-items: center;
-        justify-items: center;
+        justify-items: start;
       }
 
       // 🖼️ Iconos SVG
@@ -187,14 +202,35 @@
         width: 24px;
         height: 24px;
         object-fit: contain;
+        // Nota: Si usas <img>, no puedes cambiarle el color con CSS. 
+        // Si necesitas que los SVG cambien de color al hacer hover, 
+        // lo ideal es registrarlos en el MatIconRegistry y usar <mat-icon svgIcon="tu-icono"></mat-icon>
       }
 
       // 🔠 Botones de texto (stroked-button)
       .text-action-btn {
-        border-color: var(--rs-table-action-main);
-        color: var(--rs-table-action-main);
+        border-color: var(--rs-table-action-main) !important;
+        color: var(--rs-table-action-main) !important;
         border-radius: 6px;
         white-space: nowrap;
+      }
+
+      // 🔘 Botones de ícono (Base)
+      .icon-action-btn {
+        color: var(--rs-table-action-main) !important; // Color magenta corporativo por defecto
+
+        // Clases dinámicas para colores específicos (las inyectas desde actionClass)
+        &.action-edit {
+          color: var(--rs-blue-500) !important; // Azul para editar
+        }
+
+        &.action-delete {
+          color: var(--rs-error-color, #ef4444) !important; // Rojo puro para eliminar
+        }
+
+        &.action-success {
+          color: var(--rs-success-color, #22c55e) !important; // Verde para aprobar/reactivar
+        }
       }
     }
 
@@ -216,14 +252,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-// 🌐 Estilos Globales (Fuera de la tabla para afectar al mat-menu)
-::ng-deep .custom-svg-icon-menu {
-  width: 24px;
-  height: 24px;
-  margin-right: 16px;
-  vertical-align: middle;
 }
 
 .loading-overlay {
