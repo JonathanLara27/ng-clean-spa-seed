@@ -3,6 +3,12 @@ import { Routes } from '@angular/router';
 export const SHOW_CASE_ROUTES: Routes = [
   {
     path: '',
+    // providers: [
+    //   provideNativeDateAdapter(),
+    //   { provide: LOCALE_ID, useValue: 'es-PE' },
+    //   { provide: MAT_DATE_LOCALE, useValue: 'es-PE' },
+    //   { provide: MatDatepickerIntl, useClass: CustomDatepickerIntl },
+    // ],
     children: [
       {
         path: 'components',

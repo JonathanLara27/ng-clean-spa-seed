@@ -6,6 +6,7 @@
     "start": "ng serve --host 0.0.0.0 --port 4002",
     "start:prod": "ng serve --host 0.0.0.0 --port 4002 --configuration production",
     "build": "ng build",
+    "build:details": "ng build --verbose",
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
